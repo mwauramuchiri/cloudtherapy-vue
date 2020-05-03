@@ -8,13 +8,13 @@
       </div>
     </v-app-bar>
 
-    <transition name="fade-delay" mode="out-in" appear>
+    <transition name="fade" mode="out-in" appear>
       <!-- LOADING PAGE -->
       <v-container class="fill-height" v-if="loadingPage">
         <LoadingSpinner center />
       </v-container>
 
-      <v-container v-else>
+      <v-container v-else class="--container">
         <v-list three-line>
           <template v-for="(chat, index) in chats">
             <v-list-item
@@ -93,9 +93,8 @@ export default {
     };
   },
   created() {
-    setTimeout(() => {
-      this.loadingPage = false;
-    }, 1000);
+    this.loadingPage = false;
+    setTimeout(() => {}, 1000);
   }
 };
 </script>

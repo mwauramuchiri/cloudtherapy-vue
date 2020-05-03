@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app height="86px" color="rgba(255, 255, 255, 0)" elevation="0" />
-    <v-content>
+    <v-content style="padding-top: var(--top-app-bar-height) !important;">
       <transition :name="transitionName" appear mode="out-in">
         <router-view></router-view>
       </transition>
@@ -74,7 +74,14 @@ export default {
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
   position: fixed !important;
   width: 100% !important;
-  top: 0 !important;
+  top: 0px !important;
+}
+
+.slide-left-leave-active .--container,
+.slide-left-enter-active .--container,
+.slide-right-leave-active .--container,
+.slide-right-enter-active .--container {
+  margin-top: $ct-app-top-bar-height !important;
 }
 
 /* >>>>>>> */

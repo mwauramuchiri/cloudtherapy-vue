@@ -1,6 +1,6 @@
 <template>
   <div class="ct-h-100">
-    <v-app-bar app fixed light color="white" elevate-on-scroll height="86px">
+    <v-app-bar fixed light color="white" elevate-on-scroll height="86px">
       <a class="ml-5">LOGO</a>
       <v-spacer />
       <div class="mr-5"></div>
@@ -17,17 +17,15 @@
         <LoadingSpinner center />
       </v-container>
 
-      <v-container v-else class="pt-5">
+      <v-container v-else class="pt-5 --container">
         <!-- div -->
-        <div style="min-height: 56px;">
+        <div style="min-height: 64px;">
           <v-input v-model="search.value" :loading="search.loading">
-            <template slot="default">
-              <input
-                placeholder="Search for a Therapist"
-                class="ct-shadow ct-border-radius ct-searchbar py-5 px-3"
-                type="text"
-              />
-            </template>
+            <input
+              placeholder="Search for a Therapist"
+              class="ct-shadow ct-border-radius ct-searchbar py-5 px-3"
+              type="text"
+            />
           </v-input>
         </div>
 
@@ -115,6 +113,7 @@ export default {
   },
   created() {
     this.loadingPage = false;
+    setTimeout(() => {}, 1000);
   }
 };
 </script>

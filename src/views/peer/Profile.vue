@@ -13,7 +13,7 @@
         <LoadingSpinner center />
       </v-container>
 
-      <v-container class="fill-height" v-else>
+      <v-container class="fill-height --container" v-else>
         <!-- div -->
         <div>PROFILE</div>
       </v-container>
