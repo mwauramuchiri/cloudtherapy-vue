@@ -8,20 +8,14 @@
       </div>
     </v-app-bar>
 
-    <transition name="fade" mode="out-in" appear>
+    <transition name="fade-delay" mode="out-in" appear>
       <!-- LOADING PAGE -->
-      <v-container
-        align="center"
-        justify="center"
-        class="fill-height"
-        v-if="loadingPage"
-      >
+      <v-container class="fill-height" v-if="loadingPage">
         <LoadingSpinner center />
       </v-container>
 
-      <v-container class="fill-height" v-else>
-        <!-- div -->
-        <v-list three-line rounded>
+      <v-container v-else>
+        <v-list three-line>
           <template v-for="(chat, index) in chats">
             <v-list-item
               :key="index"
@@ -39,9 +33,13 @@
               <v-list-item-content>
                 <v-list-item-title v-html="chat.name" />
                 <v-list-item-subtitle v-html="chat.message" />
-                <h6 class="text-right ma-0" v-html="chat.time"></h6>
+                <h6
+                  class="grey--text text--darken-1 text-right ma-0"
+                  v-html="chat.time"
+                ></h6>
               </v-list-item-content>
             </v-list-item>
+            <v-divider :key="`div-${index}`" inset />
           </template>
         </v-list>
       </v-container>
@@ -95,7 +93,9 @@ export default {
     };
   },
   created() {
-    // this.loadingPage = false;
+    setTimeout(() => {
+      this.loadingPage = false;
+    }, 1000);
   }
 };
 </script>

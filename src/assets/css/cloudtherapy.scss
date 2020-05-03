@@ -25,6 +25,10 @@ body {
   height: 100%;
 }
 
+.container {
+  max-width: 700px !important;
+}
+
 button, a {
   border-radius: 9px !important;
 }
@@ -33,25 +37,27 @@ button, a {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity .5s;
+  transition: opacity 1.2s !important;
 }
 
 .fade-delay-leave-active {
-  transition: opacity .5s ease-in-out .24s;
+  transition: opacity 1.2s ease-in-out 0.33s !important;
 }
 
 .fade-delay-enter-active {
-  transition: opacity 5s ease-in-out .78s;
+  transition: opacity 1.2s ease-in-out 0.76s !important;
 }
 
 .fade-enter-to,
-.fade-leave .fade-delay-enter-to,
+.fade-leave,
+.fade-delay-enter-to,
 .fade-delay-leave {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .fade-enter,
-.fade-leave-to .fade-delay-enter,
+.fade-leave-to,
+.fade-delay-enter,
 .fade-delay-leave-to {
   opacity: 0 !important;
 }
