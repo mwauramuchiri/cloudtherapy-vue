@@ -1,11 +1,11 @@
 <template>
-  <div></div>
+  <div>PROFILE</div>
 </template>
-
-<style lang="scss"></style>
 
 <script>
 export default {
   name: "PeerProfile"
 };
 </script>
+
+<style lang="scss"></style>

@@ -1,11 +1,11 @@
 <template>
-  <div></div>
+  <div>THERAPISTS</div>
 </template>
-
-<style lang="scss"></style>
 
 <script>
 export default {
   name: "Therapists"
 };
 </script>
+
+<style lang="scss"></style>

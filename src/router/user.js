@@ -1,7 +1,7 @@
 import UserView from "../views/user/UserView.vue";
 import ChatThreads from "../views/user/ChatThreads.vue";
 import Therapists from "../views/user/Therapists.vue";
-import PeerProfile from "../views/user/PeerProfile.vue";
+import PeerProfile from "../views/peer/Profile.vue";
 
 import Conversation from "../views/user/Conversation.vue";
 import TherapistDetails from "../views/user/TherapistDetails.vue";
@@ -40,11 +40,6 @@ export default [
     path: "/user/chats/:chatThreadId",
     name: "Conversation",
     component: Conversation
-  },
-  {
-    path: "/user/therapists",
-    name: "Therapists",
-    component: Therapists
   },
   {
     path: "/user/therapists/:therapistId",

@@ -1,17 +1,12 @@
 <template>
-  <div>
-    <Home />
+  <div id="app">
+    <router-view />
   </div>
 </template>
 
 <script>
-import Home from "./views/Home";
-
 export default {
   name: "App",
-  components: {
-    Home
-  },
   data: () => ({
     //
   })
@@ -20,6 +15,8 @@ export default {
 
 <style lang="scss">
 // Global CSS
+@import "./assets/css/cloudtherapy.scss";
+
 .bg-img {
   width: 100%;
   background-size: cover;

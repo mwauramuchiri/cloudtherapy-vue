@@ -1,11 +1,11 @@
 <template>
-  <div></div>
+  <div>THREAD</div>
 </template>
-
-<style lang="scss"></style>
 
 <script>
 export default {
   name: "ChatThreads"
 };
 </script>
+
+<style lang="scss"></style>
