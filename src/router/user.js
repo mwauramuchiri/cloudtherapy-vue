@@ -15,6 +15,7 @@ export default [
     children: [
       {
         path: "chats",
+        alias: "",
         name: "ChatThreads",
         component: ChatThreads
       },

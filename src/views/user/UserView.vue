@@ -33,8 +33,31 @@ export default {
       transitionName: "fade" // use slide left|right transitions
     };
   },
-  beforeRouteUpdate() {
+  beforeRouteUpdate(to, from, next) {
     // change transition name
+    console.log(to, this.$route);
+    if (
+      (to.name === "Therapists" && from.name === "ChatThreads") ||
+      (to.name === "PeerProfile" &&
+        (from.name === "Therapists" || from.name === "ChatThreads"))
+    ) {
+      this.transitionName = "slide-right";
+    } else if (
+      (to.name === "Therapists" && from.name === "PeerProfile") ||
+      (to.name === "ChatThreads" &&
+        (from.name === "Therapists" || from.name === "PeerProfile"))
+    ) {
+      this.transitionName = "slide-left";
+    } else {
+      this.transitionName = "fade";
+    }
+
+    next();
+  },
+  created() {
+    if (this.$route.fullPath === "/user") {
+      this.$router.replace({ name: "ChatThreads" });
+    }
   }
 };
 </script>

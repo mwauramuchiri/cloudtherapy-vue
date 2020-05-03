@@ -7,11 +7,11 @@
           CLOUD THERAPY LOGO
         </v-col>
 
-        <v-col cols="12" style="margin-top: 64px;">
+        <v-col cols="12" style="margin-top: 36px;">
           <v-row vertical align="center" justify="center">
             <v-col cols="12">
-              <h3 class="font-weight-bold">Hi There</h3>
-              <h5 class="font-weight-light">Let's get started</h5>
+              <h1 class="font-weight-bold">Hi There</h1>
+              <h3 class="font-weight-light">Let's get started</h3>
             </v-col>
 
             <transition name="fade" mode="out-in" appear>
