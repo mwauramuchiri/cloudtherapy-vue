@@ -1,12 +1,13 @@
 <template>
   <v-app>
+    <v-app-bar app height="86px" color="rgba(255, 255, 255, 0)" elevation="0" />
     <v-content>
       <transition :name="transitionName" appear mode="out-in">
         <router-view></router-view>
       </transition>
     </v-content>
     <!-- BOTTOM NAV -->
-    <v-bottom-navigation>
+    <v-bottom-navigation color="blue">
       <v-btn :to="{ name: 'ChatThreads' }">
         <span>Chats</span>
         <v-icon>mdi-history</v-icon>
@@ -35,7 +36,6 @@ export default {
   },
   beforeRouteUpdate(to, from, next) {
     // change transition name
-    console.log(to, this.$route);
     if (
       (to.name === "Therapists" && from.name === "ChatThreads") ||
       (to.name === "PeerProfile" &&
@@ -70,43 +70,46 @@ export default {
 .slide-right-leave-active,
 .slide-right-enter-active {
   transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  position: fixed !important;
+  width: 100vw !important;
+  top: 0 !important;
 }
 
 /* >>>>>>> */
 
 .slide-left-enter {
   opacity: 0;
-  @include transform(translate(-50vw, 0));
-  // transform: translate(-50vw, 0);
+  @include transform(translate(-100vw, 0));
 }
 
 .slide-left-enter-to,
 .slide-left-leave {
   opacity: 1;
-  transform: translate(0, 0);
+  @include transform(translate(0, 0));
 }
 
 .slide-left-leave-to {
   opacity: 0;
-  transform: translate(50vw, 0);
+  @include transform(translate(100vw, 0));
 }
 
 /* >>>>>>> */
 
 .slide-right-enter {
   opacity: 0;
-  transform: translate(50vw, 0);
+  @include transform(translate(100vw, 0));
 }
 
 .slide-right-enter-to,
 .slide-right-leave {
   opacity: 1;
-  transform: translate(0, 0);
+  @include transform(translate(0, 0));
 }
 
 .slide-right-leave-to {
   opacity: 0;
-  transform: translate(-50vw, 0);
+  @include transform(translate(-100vw, 0));
 }
 
 /* >>>>>>> */
