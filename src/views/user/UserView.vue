@@ -30,10 +30,61 @@ export default {
   name: "UserView",
   data() {
     return {
-      transitionMode: "fade" // use slide left|right transitions
+      transitionName: "fade" // use slide left|right transitions
     };
+  },
+  beforeRouteUpdate() {
+    // change transition name
   }
 };
 </script>
 
-<style></style>
+<style lang="scss">
+/* >>>>>>> */
+
+.slide-left-leave-active,
+.slide-left-enter-active,
+.slide-right-leave-active,
+.slide-right-enter-active {
+  transition-duration: 0.3s;
+}
+
+/* >>>>>>> */
+
+.slide-left-enter {
+  opacity: 0;
+  @include transform(translate(-50vw, 0));
+  // transform: translate(-50vw, 0);
+}
+
+.slide-left-enter-to,
+.slide-left-leave {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.slide-left-leave-to {
+  opacity: 0;
+  transform: translate(50vw, 0);
+}
+
+/* >>>>>>> */
+
+.slide-right-enter {
+  opacity: 0;
+  transform: translate(50vw, 0);
+}
+
+.slide-right-enter-to,
+.slide-right-leave {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.slide-right-leave-to {
+  opacity: 0;
+  transform: translate(-50vw, 0);
+}
+
+/* >>>>>>> */
+</style>
