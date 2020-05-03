@@ -72,38 +72,47 @@ export default {
   transition-duration: 0.3s;
   transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
   position: fixed !important;
-  width: 100vw !important;
+  width: 100% !important;
   top: 0 !important;
 }
 
 /* >>>>>>> */
 
 .slide-left-enter {
-  opacity: 0;
+  opacity: 0 !important;
   @include transform(translate(-100vw, 0));
 }
 
 .slide-left-enter-to,
 .slide-left-leave {
-  opacity: 1;
+  opacity: 1 !important;
   @include transform(translate(0, 0));
 }
 
 .slide-left-leave-to {
-  opacity: 0;
+  opacity: 0 !important;
   @include transform(translate(100vw, 0));
+}
+
+@media screen and (min-width: 928px) {
+  .slide-left-enter {
+    @include transform(translate(-50vw, 0));
+  }
+  .slide-left-leave-to {
+    @include transform(translate(50vw, 0));
+  }
 }
 
 /* >>>>>>> */
 
 .slide-right-enter {
-  opacity: 0;
+  opacity: 0 !important;
   @include transform(translate(100vw, 0));
 }
 
 .slide-right-enter-to,
 .slide-right-leave {
-  opacity: 1;
+  opacity: 1 !important;
   @include transform(translate(0, 0));
 }
 
@@ -112,5 +121,13 @@ export default {
   @include transform(translate(-100vw, 0));
 }
 
+@media screen and (min-width: 928px) {
+  .slide-right-enter {
+    @include transform(translate(50vw, 0));
+  }
+  .slide-right-leave-to {
+    @include transform(translate(-50vw, 0));
+  }
+}
 /* >>>>>>> */
 </style>
