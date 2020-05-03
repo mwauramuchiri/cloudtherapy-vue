@@ -4,6 +4,7 @@
 
 #app {
   font-family: 'Muli', Roboto, Arial;
+  --loaderColor: #fff;
 }
 
 .ct-shadow {
@@ -18,6 +19,10 @@ body {
 
 .mt-8 {
   margin-top: 32px !important;
+}
+
+.ct-h-100 {
+  height: 100%;
 }
 
 button, a {

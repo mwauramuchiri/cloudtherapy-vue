@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ct-h-100">
     <v-app-bar app fixed light color="white" elevate-on-scroll height="86px">
       <a class="ml-5">LOGO</a>
       <v-spacer />
@@ -7,7 +7,17 @@
     </v-app-bar>
 
     <transition name="fade" mode="out-in" appear>
-      <v-container class="fill-height">
+      <!-- LOADING PAGE -->
+      <v-container
+        align="center"
+        justify="center"
+        class="fill-height"
+        v-if="loadingPage"
+      >
+        <LoadingSpinner center />
+      </v-container>
+
+      <v-container class="fill-height" v-else>
         <!-- div -->
         <div>THERAPISTS</div>
       </v-container>

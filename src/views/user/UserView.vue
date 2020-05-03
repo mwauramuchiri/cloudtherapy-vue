@@ -10,17 +10,17 @@
     <v-bottom-navigation color="blue">
       <v-btn :to="{ name: 'ChatThreads' }">
         <span>Chats</span>
-        <v-icon>mdi-history</v-icon>
+        <v-icon>mdi-forum-outline</v-icon>
       </v-btn>
 
       <v-btn :to="{ name: 'Therapists' }">
         <span>Therapists</span>
-        <v-icon>mdi-heart</v-icon>
+        <v-icon>mdi-heart-pulse</v-icon>
       </v-btn>
 
       <v-btn :to="{ name: 'PeerProfile' }">
         <span>Profile</span>
-        <v-icon>mdi-map-marker</v-icon>
+        <v-icon>mdi-account-outline</v-icon>
       </v-btn>
     </v-bottom-navigation>
   </v-app>
