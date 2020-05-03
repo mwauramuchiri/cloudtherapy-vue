@@ -55,6 +55,7 @@ export default {
     next();
   },
   created() {
+    this.transitionName = "fade";
     if (this.$route.fullPath === "/user") {
       this.$router.replace({ name: "ChatThreads" });
     }

@@ -17,6 +17,10 @@ body {
   overflow: hidden !important;
 }
 
+main.v-content {
+  padding-top: 86px;
+}
+
 .mt-8 {
   margin-top: 32px !important;
 }
@@ -29,8 +33,34 @@ body {
   max-width: 700px !important;
 }
 
+.ct-cursor-pointer {
+  cursor: pointer !important;
+}
+
+.ct-transition-fast {
+  transition-duration: .24s;
+}
+
+.ct-transition {
+  transition-duration: .33s;
+}
+
+.ct-transition-slow {
+  transition-duration: .5s;
+}
+
+.ct-transition,
+.ct-transition-fast,
+.ct-transition-slow {
+  transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
 button, a {
-  border-radius: 9px !important;
+  @extend .ct-border-radius;
+}
+
+.ct-border-radius {
+  border-radius: $ct-border-radius !important;
 }
 
 /* >>>>>>> */
