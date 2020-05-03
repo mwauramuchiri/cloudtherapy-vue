@@ -4,14 +4,7 @@ import Home from "../views/Home.vue";
 import Auth from "../views/Auth.vue";
 
 // User views
-import ChatThreads from "../views/user/ChatThreads.vue";
-import Conversation from "../views/user/Conversation.vue";
-import Therapists from "../views/user/Therapists.vue";
-import TherapistDetails from "../views/user/TherapistDetails.vue";
-import UserDetails from "../views/user/UserDetails.vue";
-
-// Peer views
-import PeerProfile from "../views/peer/Profile.vue";
+import UserViews from "./user";
 
 // Therapist views
 import TherapistProfile from "../views/therapist/Profile.vue";
@@ -32,44 +25,8 @@ const routes = [
     component: Auth
   },
 
-  // User routes
-  {
-    path: "/user/chats",
-    name: "ChatThreads",
-    component: ChatThreads
-  },
-  {
-    path: "/user/chats/details/:chatThreadId",
-    name: "UserDetails",
-    component: UserDetails
-  },
-  {
-    path: "/user/chats/:chatThreadId",
-    name: "Conversation",
-    component: Conversation
-  },
-  {
-    path: "/user/therapists",
-    name: "Therapists",
-    component: Therapists
-  },
-  {
-    path: "/user/therapists",
-    name: "Therapists",
-    component: Therapists
-  },
-  {
-    path: "/user/therapists/:therapistId",
-    name: "TherapistDetails",
-    component: TherapistDetails
-  },
-
-  // Peer routes
-  {
-    path: "/peer/profile",
-    name: "PeerProfile",
-    component: PeerProfile
-  },
+  // User route
+  ...UserViews,
 
   // Therapist routes
   {
