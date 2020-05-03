@@ -1,7 +1,10 @@
 <template>
-  <div class="home">
-    <h2>Talk to your peers anonymously</h2>
-    <v-btn>Get started</v-btn>
+  <div class="home bg-image" id="home">
+    <h1>It's okay not to be okay</h1>
+    <v-btn
+      >Share your issues with peers going through the same thing
+      anonymously</v-btn
+    >
   </div>
 </template>
 
