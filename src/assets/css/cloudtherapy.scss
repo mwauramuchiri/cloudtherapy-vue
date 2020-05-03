@@ -1,5 +1,15 @@
+@import "./_variables.scss";
 @import "./fonts.scss";
+@import "./typography.scss";
 
 #app {
   font-family: 'Muli', Roboto, Arial;
+}
+
+.ct-shadow {
+  box-shadow: $ct-shadow !important;
+}
+
+body {
+  font-size: 16px;
 }

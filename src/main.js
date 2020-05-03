@@ -7,6 +7,10 @@ import vuetify from "./plugins/vuetify";
 import "roboto-fontface/css/roboto/roboto-fontface.css";
 import "@mdi/font/css/materialdesignicons.css";
 
+import UiMixin from "./mixins/ui";
+
+Vue.mixin(UiMixin);
+
 Vue.config.productionTip = false;
 
 new Vue({
