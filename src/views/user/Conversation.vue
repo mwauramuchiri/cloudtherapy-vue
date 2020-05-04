@@ -58,7 +58,7 @@
         <v-content class="ct-h-100 grey lighten-5" key="ct-chat-content">
           <!-- LOADING CHATS -->
           <v-container class="fill-height" v-if="loadingChats">
-            <LoadingSpinner size="24" center />
+            <LoadingSpinner size="40" center />
           </v-container>
 
           <template v-else class="--container ct-h-100">

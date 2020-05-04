@@ -1,6 +1,7 @@
 <template>
   <svg
     :width="size"
+    :style="{ width: transformedSize }"
     :class="['loader', { 'loader--center': center }]"
     viewBox="0 0 100 100"
   >
@@ -27,6 +28,11 @@ export default {
     color: {
       type: String,
       default: "#EFEBE9"
+    }
+  },
+  computed: {
+    transformedSize() {
+      return `${this.size.toString().match(/\d+/)[0]}px`;
     }
   }
 };
