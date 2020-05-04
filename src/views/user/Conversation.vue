@@ -23,18 +23,39 @@
           app
           fixed
           color="white"
-          height="86px"
+          height="56px"
         >
-          <a class="ml-5">LOGO</a>
+          <v-btn
+            icon
+            title="back to chats"
+            class="mx-5"
+            @click="goTo({ name: 'ChatThreads' })"
+          >
+            <v-icon>mdi-arrow-left</v-icon>
+          </v-btn>
+          <!-- <v-spacer /> -->
+          <v-avatar class="ml-5" size="36">
+            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
+          </v-avatar>
           <v-spacer />
           <div class="mr-5">
-            <v-btn large class="px-5 text-white" color="primary"
-              >FIND PEERS</v-btn
-            >
+            <v-menu bottom left>
+              <template v-slot:activator="{ on }">
+                <v-btn icon v-on="on">
+                  <v-icon>mdi-dots-vertical</v-icon>
+                </v-btn>
+              </template>
+
+              <v-list dense>
+                <v-list-item @click="reportUser">
+                  <v-list-item-title>Report User</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
           </div>
         </v-app-bar>
 
-        <v-content class="ct-h-100" key="ct-chat-content">
+        <v-content class="ct-h-100 grey lighten-5" key="ct-chat-content">
           <!-- LOADING CHATS -->
           <v-container class="fill-height" v-if="loadingChats">
             <LoadingSpinner size="24" center />
@@ -55,7 +76,7 @@
         >
           <!-- CHAT TEXTAREA -->
           <!-- CHAT SEND BTN -->
-          <ChatInput />
+          <ChatInput @send-text="sendText" />
         </v-footer>
       </template>
     </transition-group>
@@ -75,6 +96,14 @@ export default {
       loadingChats: true
     };
   },
+  methods: {
+    sendText(text) {
+      console.log("Sending...", text);
+    },
+    reportUser() {
+      //
+    }
+  },
   async created() {
     // load other user
     // load chat
@@ -84,4 +113,11 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+@media screen and (min-width: $lg-width) {
+  .v-content {
+    // [FooteHight]px + [ExtraPadding]px
+    padding-bottom: 140px !important;
+  }
+}
+</style>

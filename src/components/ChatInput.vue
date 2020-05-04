@@ -57,8 +57,6 @@ export default {
 
       const input = this.$refs["chat-input"].$el.querySelector("textarea");
       this.inputCursorPos = [input.selectionStart, input.selectionEnd];
-
-      console.log(this.inputCursorPos, this.text);
     }, 150)
   },
   computed: {
@@ -70,12 +68,6 @@ export default {
     emojiBarOpen() {
       const input = this.$refs["chat-input"].$el.querySelector("textarea");
       this.inputCursorPos = [input.selectionStart, input.selectionEnd];
-
-      console.log(
-        "get cursor position in input \n",
-        input.selectionStart,
-        input.selectionEnd
-      );
 
       this.$nextTick(input.focus());
     },
@@ -123,7 +115,7 @@ export default {
   border-color: rgba($color: #000000, $alpha: 0.15) !important;
   // .grey .lighten-1
   background-color: rgba($color: #fafafa, $alpha: 1) !important;
-  min-width: 300px !important;
+  width: 87% !important;
 
   > *:not(.chat-input__textarea) {
     margin-bottom: 4px !important;
@@ -132,7 +124,13 @@ export default {
 
 @media screen and (min-width: $lg-width) {
   .chat-input {
-    min-width: 500px !important;
+    max-width: 640px !important;
+    padding: 6px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .v-footer + .v-content {
+    margin-bottom: 20px !important;
   }
 }
 

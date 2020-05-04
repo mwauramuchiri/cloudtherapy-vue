@@ -62,7 +62,7 @@ export default {
       }
     }, 150),
     addEmoji(emoji) {
-      console.log(emoji);
+      // console.log(emoji);
       this.$emit("add-emoji", emoji);
     }
   }
