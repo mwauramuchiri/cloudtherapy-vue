@@ -5,3 +5,52 @@
   -webkit-transform: $transforms;
   transform: $transforms;
 }
+
+@mixin nice-scrollbar($bg: false, $scrollbar_color: $scrollbar-base-color, $bg_color: rgba($color: #000, $alpha: 0.32)) {
+  &:not(._native-scrollbars) {
+    scrollbar-base-color: $scrollbar_color;
+    -ms-scrollbar-highlight-color: rgba($color: #fff, $alpha: 0.78);
+    -ms-scrollbar-face-color: $scrollbar_color;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+      border-width: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+      border: 0;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+
+      @if $bg {
+        background: $bg_color;
+      }
+    }
+
+    &::-webkit-scrollbar {
+      -webkit-appearance: none;
+    }
+
+    &::-webkit-scrollbar-button {
+      display: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      min-height: 2rem;
+      background: $scrollbar_color;
+      background-clip: padding-box;
+      border-radius: 10px;
+    }
+  }
+}
+
+@mixin no-scrollbar() {
+  &::-webkit-scrollbar {
+    width: 1px;
+    opacity: 0;
+  }
+
+  &::-webkit-scrollbar-track {
+    opacity: 0;
+  }
+}

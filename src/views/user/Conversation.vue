@@ -1,6 +1,12 @@
 <template>
   <v-app>
-    <transition-group class="ct-h-100" tag="div" name="fade-delay" mode="out-in" appear>
+    <transition-group
+      class="ct-h-100"
+      tag="div"
+      name="fade-delay"
+      mode="out-in"
+      appear
+    >
       <!-- LOADING PAGE -->
       <v-container
         key="ct-chat-loading-state"
@@ -40,19 +46,30 @@
         </v-content>
 
         <!-- BOTTOM BAR -->
-        <v-bottom-navigation key="ct-chat-bottom-bar" app elevation-0>
+        <v-footer
+          key="ct-chat-bottom-bar"
+          app
+          fixed
+          class="elevation-0 justify-center py-5"
+          color="transparent"
+        >
           <!-- CHAT TEXTAREA -->
-        </v-bottom-navigation>
+          <!-- CHAT SEND BTN -->
+          <ChatInput />
+        </v-footer>
       </template>
     </transition-group>
   </v-app>
 </template>
 
-<style lang="scss"></style>
-
 <script>
+import ChatInput from "@/components/ChatInput.vue";
+
 export default {
   name: "Conversation",
+  components: {
+    ChatInput
+  },
   data() {
     return {
       loadingChats: true
@@ -66,3 +83,5 @@ export default {
   }
 };
 </script>
+
+<style lang="scss"></style>

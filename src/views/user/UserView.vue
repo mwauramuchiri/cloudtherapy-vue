@@ -102,7 +102,7 @@ export default {
   @include transform(translate(100vw, 0));
 }
 
-@media screen and (min-width: 928px) {
+@media screen and (min-width: $lg-width) {
   .slide-left-enter {
     @include transform(translate(-50vw, 0));
   }
@@ -129,7 +129,7 @@ export default {
   @include transform(translate(-100vw, 0));
 }
 
-@media screen and (min-width: 928px) {
+@media screen and (min-width: $lg-width) {
   .slide-right-enter {
     @include transform(translate(50vw, 0));
   }
