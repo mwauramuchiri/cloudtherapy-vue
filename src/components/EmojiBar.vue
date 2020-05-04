@@ -4,10 +4,9 @@
     nudge-top="60"
     z-index="77"
     max-height="41.5vh"
-    max-width="360px"
     attach
     transition="slide-y-reverse-transition"
-    :class="'elevation-0 emojibar'"
+    class="elevation-0 emojibar"
     :allow-overflow="false"
     :close-on-content-click="false"
     :nudge-width="200"
@@ -72,10 +71,16 @@ export default {
 <style lang="scss">
 .emojibar {
   overflow: hidden;
-  max-width: 360px;
+  max-width: 360px !important;
 
   > [class*="v-menu"] {
     overflow: hidden;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  .emojibar {
+    max-width: 84vw !important;
   }
 }
 

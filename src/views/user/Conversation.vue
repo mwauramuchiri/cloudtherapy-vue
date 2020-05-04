@@ -18,7 +18,7 @@
 
       <template v-else>
         <v-app-bar
-          class="ct-shadow"
+          class="ct-shadow ct-app-bar"
           key="ct-chat-top-bar"
           app
           fixed
@@ -28,17 +28,19 @@
           <v-btn
             icon
             title="back to chats"
-            class="mx-5"
+            class="ml-xs-2 ml-sm-and-up-5"
             @click="goTo({ name: 'ChatThreads' })"
           >
             <v-icon>mdi-arrow-left</v-icon>
           </v-btn>
-          <!-- <v-spacer /> -->
+          <v-spacer />
           <v-avatar class="ml-5" size="36">
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
           </v-avatar>
+          <!-- {{ }} -->
+          <h5 class="ml-3">Random User</h5>
           <v-spacer />
-          <div class="mr-5">
+          <div class="mr-xs-2 mr-sm-and-up-5">
             <v-menu bottom left>
               <template v-slot:activator="{ on }">
                 <v-btn icon v-on="on">
