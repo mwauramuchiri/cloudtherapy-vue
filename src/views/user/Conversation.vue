@@ -13,7 +13,7 @@
         class="fill-height"
         v-if="loadingPage"
       >
-        <LoadingSpinner size="24" center />
+        <LoadingSpinner size="64" center />
       </v-container>
 
       <template v-else>

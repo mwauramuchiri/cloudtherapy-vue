@@ -136,6 +136,7 @@ export default {
 
 .chat-input__textarea textarea {
   line-height: $h2-size !important;
+  max-height: 240px !important;
 }
 
 .chat-input__textarea,
