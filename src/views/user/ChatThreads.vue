@@ -4,7 +4,15 @@
       <a class="ml-5">LOGO</a>
       <v-spacer />
       <div class="mr-5">
-        <v-btn large class="px-5 text-white" color="primary">FIND PEERS</v-btn>
+        <v-btn
+          large
+          class="px-5 text-white"
+          color="primary"
+          :disabled="findingPeers"
+          @click="findPeers()"
+        >
+          {{ findPeersBtnText }}
+        </v-btn>
       </div>
     </v-app-bar>
 
@@ -63,6 +71,8 @@ export default {
   name: "ChatThreads",
   data() {
     return {
+      findingPeers: false,
+      findPeersBtnText: "Find Peers",
       chats: [
         {
           id: 232,
@@ -101,8 +111,25 @@ export default {
             "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium",
           time: "16:24"
         }
-      ]
+      ],
+      // don't know if we need this as a data prop or computed.
+      // Depends on the data for chats
+      newChats: []
     };
+  },
+  methods: {
+    findPeers() {
+      // trigger an overlay or something
+      //    loading state
+      this.findingPeers = true;
+      this.findPeersBtnText = "working...";
+
+      // ajax
+      setTimeout(() => {
+        this.findingPeers = false;
+        this.findPeersBtnText = "Find Peers";
+      }, 2000);
+    }
   },
   created() {
     this.loadingPage = false;
