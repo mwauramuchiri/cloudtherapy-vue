@@ -31,7 +31,18 @@
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title v-html="chat.name" />
+                <v-list-item-title class="d-flex align-center pb-2">
+                  {{ chat.name }}
+                  <v-chip
+                    class="ml-3"
+                    v-if="chat.therapist"
+                    x-small
+                    pill
+                    color="green white--text lighten-2"
+                  >
+                    THERAPIST
+                  </v-chip>
+                </v-list-item-title>
                 <v-list-item-subtitle v-html="chat.message" />
                 <h6
                   class="grey--text text--darken-1 text-right ma-0"
@@ -60,7 +71,8 @@ export default {
           name: "User Mike",
           message:
             "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium",
-          time: "16:24"
+          time: "16:24",
+          therapist: true
         },
         {
           id: 2324,
