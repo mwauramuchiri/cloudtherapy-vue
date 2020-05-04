@@ -72,7 +72,7 @@ button, a {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 1.2s !important;
+  transition: opacity 0.55s ease-in-out !important;
 }
 
 .fade-delay-leave-active {

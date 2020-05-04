@@ -1,5 +1,5 @@
 <template>
-  <div class="ct-h-100">
+  <v-sheet class="ct-h-100">
     <v-app-bar fixed light color="white" elevate-on-scroll height="86px">
       <a class="ml-5">LOGO</a>
       <v-spacer />
@@ -18,7 +18,7 @@
       </v-container>
 
       <v-container v-else class="pt-5 --container">
-        <!-- div -->
+        <!-- SEARCHBAR -->
         <div style="min-height: 64px;">
           <v-input v-model="search.value" :loading="search.loading">
             <input
@@ -33,40 +33,47 @@
         <h5 class="font-weight-light text--secondary my-5 text-center">
           Tap any therapist to chat with them
         </h5>
-
-        <template v-for="(therapist, index) in therapists">
-          <!--  -->
-          <v-hover :key="index" v-slot:default="{ hover }" close-delay="100">
-            <v-sheet
-              :key="index"
-              class="ct-transition-fast ct-cursor-pointer mb-4 px-5 pt-2 pb-4 ct-shadow ct-border-radius grey lighten-5"
-              :elevation="hover ? 8 : 4"
-              @click="
-                goTo({ name: 'TherapistDetails', params: { therapistId: id } })
-              "
-            >
-              <div class="d-flex align-start">
-                <h3 v-html="therapist.name"></h3>
-                <v-spacer />
-                <OnlineNotify :online="therapist.online" />
-              </div>
-              <div class="d-flex mt-2">
-                <v-chip
-                  :key="id"
-                  v-for="{ id, profession } in therapist.professions"
-                  dark
-                  :ripple="false"
-                  class="mr-2 mt-2"
-                >
-                  {{ profession }}
-                </v-chip>
-              </div>
-            </v-sheet>
-          </v-hover>
-        </template>
+        <v-row>
+          <v-col
+            cols="12"
+            :key="`th-${index}`"
+            v-for="(therapist, index) in therapists"
+          >
+            <!--  -->
+            <v-hover v-slot:default="{ hover }" close-delay="100">
+              <v-sheet
+                class="ct-transition-fast ct-cursor-pointer mb-4 px-5 pt-2 pb-4 ct-shadow ct-border-radius grey lighten-5"
+                :elevation="hover ? 8 : 4"
+                @click="
+                  goTo({
+                    name: 'TherapistDetails',
+                    params: { therapistId: therapist.id }
+                  })
+                "
+              >
+                <div class="d-flex align-start">
+                  <h3 v-html="therapist.name"></h3>
+                  <v-spacer />
+                  <OnlineNotify :online="therapist.online" />
+                </div>
+                <div class="d-flex mt-2">
+                  <v-chip
+                    :key="`${therapist.id}-${id}`"
+                    v-for="{ id, profession } in therapist.professions"
+                    dark
+                    :ripple="false"
+                    class="mr-2 mt-2"
+                  >
+                    {{ profession }}
+                  </v-chip>
+                </div>
+              </v-sheet>
+            </v-hover>
+          </v-col>
+        </v-row>
       </v-container>
     </transition>
-  </div>
+  </v-sheet>
 </template>
 
 <script>

@@ -18,33 +18,33 @@
               <!-- BUTTONS -->
               <v-col cols="12" class="mt-5" v-if="!loadingPage">
                 <v-btn
-                  :width="228"
+                  :min-width="228"
                   x-large
                   class="mt-8 ct-btn-facebook ct-shadow"
                   @click="btnClick('')"
                 >
                   <v-icon left>mdi-facebook</v-icon>
-                  Facebook
+                  Sign in with Facebook
                 </v-btn>
                 <div></div>
                 <v-btn
-                  :width="228"
+                  :min-width="228"
                   x-large
                   class="mt-8 ct-btn-twitter ct-shadow"
                   @click="btnClick('')"
                 >
                   <v-icon left>mdi-twitter</v-icon>
-                  Twittter
+                  Sign in with Twittter
                 </v-btn>
                 <div></div>
                 <v-btn
-                  :width="228"
+                  :min-width="228"
                   x-large
                   class="mt-8 ct-btn-google ct-shadow"
                   @click="btnClick('')"
                 >
                   <v-icon left>mdi-google</v-icon>
-                  Google
+                  Sign in with Google
                 </v-btn>
               </v-col>
             </transition>

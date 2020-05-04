@@ -7,7 +7,7 @@
       </transition>
     </v-content>
     <!-- BOTTOM NAV -->
-    <v-bottom-navigation color="blue">
+    <v-bottom-navigation fixed color="blue">
       <v-btn :to="{ name: 'ChatThreads' }">
         <span>Chats</span>
         <v-icon>mdi-forum-outline</v-icon>

@@ -1,5 +1,5 @@
 <template>
-  <div class="ct-h-100">
+  <v-sheet class="ct-h-100">
     <v-app-bar app fixed light color="white" elevate-on-scroll height="86px">
       <a class="ml-5">LOGO</a>
       <v-spacer />
@@ -44,7 +44,7 @@
         </v-list>
       </v-container>
     </transition>
-  </div>
+  </v-sheet>
 </template>
 
 <script>
