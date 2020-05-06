@@ -18,6 +18,28 @@
       </v-container>
 
       <v-container v-else class="pt-5 --container">
+        <v-dialog v-model="dialog" max-width="290">
+          <v-card>
+            <v-card-title class="headline"></v-card-title>
+
+            <v-card-text>
+              {{ dialogMessage }}
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+
+              <v-btn color="green darken-1" text @click="dialogDecline()">
+                Decline
+              </v-btn>
+
+              <v-btn color="green darken-1" text @click="dialogOnAccept()">
+                Okay
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
         <!-- SEARCHBAR -->
         <div style="min-height: 64px;">
           <v-input v-model="search.value" :loading="search.loading">
@@ -44,12 +66,7 @@
               <v-sheet
                 class="ct-transition-fast ct-cursor-pointer mb-4 px-5 pt-2 pb-4 ct-shadow ct-border-radius grey lighten-5"
                 :elevation="hover ? 8 : 4"
-                @click="
-                  goTo({
-                    name: 'TherapistDetails',
-                    params: { therapistId: therapist.id }
-                  })
-                "
+                @click="clickTherapist(therapist.id, therapist.name)"
               >
                 <div class="d-flex align-start">
                   <h3 v-html="therapist.name"></h3>
@@ -110,12 +127,41 @@ export default {
             }
           ]
         }
-      ]
+      ],
+      dialog: false,
+      dialogOnAccept: () => {},
+      dialogMessage: "Chat with therapist?"
     };
   },
   computed: {
     searchResults() {
       return this.therapists;
+    }
+  },
+  methods: {
+    clickTherapist(therapistId, therapistName) {
+      this.dialog = true;
+
+      this.dialogOnAccept = () => {
+        this.goTo({
+          name: "TherapistDetails",
+          params: { therapistId }
+        });
+      };
+
+      this.dialogMessage = `Chat with ${therapistName}?`;
+    },
+
+    async dialogDecline() {
+      this.dialog = false;
+      this.dialogOnAccept = () => {};
+
+      await this.$nextTick();
+      await this.$nextTick();
+
+      setTimeout(() => {
+        this.dialogMessage = "Chat with therapist?";
+      }, 800);
     }
   },
   created() {

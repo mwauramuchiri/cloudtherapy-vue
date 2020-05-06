@@ -9,6 +9,7 @@ export default {
   methods: {
     goTo(to) {
       if (!to) return;
+
       if (typeof to === "string") {
         this.$router.push({ name: to });
       } else {
