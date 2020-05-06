@@ -144,7 +144,7 @@ export default {
 
       this.dialogOnAccept = () => {
         this.goTo({
-          name: "TherapistDetails",
+          name: "TherapistConversation",
           params: { therapistId }
         });
       };

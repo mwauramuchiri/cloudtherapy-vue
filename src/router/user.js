@@ -4,7 +4,7 @@ import Therapists from "../views/user/Therapists.vue";
 import PeerProfile from "../views/peer/Profile.vue";
 
 import Conversation from "../views/user/Conversation.vue";
-import TherapistDetails from "../views/user/TherapistDetails.vue";
+// import TherapistDetails from "../views/user/TherapistDetails.vue";
 import UserDetails from "../views/user/UserDetails.vue";
 
 export default [
@@ -35,16 +35,24 @@ export default [
   {
     path: "/user/chats/details/:chatThreadId",
     name: "UserDetails",
-    component: UserDetails
+    component: UserDetails,
+    props: true
   },
   {
     path: "/user/chats/:chatThreadId",
     name: "Conversation",
-    component: Conversation
+    component: Conversation,
+    props: true
   },
   {
     path: "/user/therapists/:therapistId",
-    name: "TherapistDetails",
-    component: TherapistDetails
+    name: "TherapistConversation",
+    component: Conversation,
+    props(route) {
+      return {
+        therapist: true,
+        therapistId: route.params.therapistId
+      };
+    }
   }
 ];

@@ -58,6 +58,16 @@
         </v-app-bar>
 
         <v-content class="ct-h-100 grey lighten-5" key="ct-chat-content">
+          <v-banner single-line sticky v-if="therapist" color="green lighten-5">
+            <h4 class="grey--text text--darken-4 font-weight-regular">
+              I am here to help. Feel free to call me anytime
+            </h4>
+
+            <template v-slot:actions>
+              <v-btn text color="yellow accent-4">Call Anne</v-btn>
+            </template>
+          </v-banner>
+
           <!-- LOADING CHATS -->
           <v-container class="fill-height" v-if="loadingChats">
             <LoadingSpinner size="40" center />
@@ -93,6 +103,7 @@ export default {
   components: {
     ChatInput
   },
+  props: ["therapist", "therapistId"],
   data() {
     return {
       loadingChats: true
