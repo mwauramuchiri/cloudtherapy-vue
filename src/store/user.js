@@ -10,5 +10,13 @@ export default {
     userName(state) {
       return state.user_.name;
     }
+  },
+  mutations: {
+    newUserName(state, name) {
+      state.user_.name = name;
+    },
+    userData(state, [prop, data]) {
+      state.user_[prop] = data;
+    }
   }
 };

@@ -19,6 +19,7 @@
               <v-col cols="12" class="mt-5" v-if="!loadingPage">
                 <v-btn
                   :min-width="228"
+                  width="300px"
                   x-large
                   class="mt-8 ct-btn-facebook ct-shadow"
                   @click="btnClick('')"
@@ -29,16 +30,18 @@
                 <div></div>
                 <v-btn
                   :min-width="228"
+                  width="300px"
                   x-large
                   class="mt-8 ct-btn-twitter ct-shadow"
                   @click="btnClick('')"
                 >
                   <v-icon left>mdi-twitter</v-icon>
-                  Sign in with Twittter
+                  Sign in with Twitter
                 </v-btn>
                 <div></div>
                 <v-btn
                   :min-width="228"
+                  width="300px"
                   x-large
                   class="mt-8 ct-btn-google ct-shadow"
                   @click="btnClick('')"

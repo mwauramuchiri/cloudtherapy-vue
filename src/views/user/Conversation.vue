@@ -33,7 +33,7 @@
           >
             <v-icon>mdi-arrow-left</v-icon>
           </v-btn>
-          <v-spacer />
+          <!-- <v-spacer /> -->
           <v-avatar class="ml-5" size="36">
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
           </v-avatar>
@@ -49,8 +49,8 @@
               </template>
 
               <v-list dense>
-                <v-list-item @click="reportUser">
-                  <v-list-item-title>Report User</v-list-item-title>
+                <v-list-item @click="unmatch">
+                  <v-list-item-title>Unmatch</v-list-item-title>
                 </v-list-item>
               </v-list>
             </v-menu>
@@ -74,7 +74,7 @@
           app
           fixed
           class="elevation-0 justify-center py-5"
-          color="transparent"
+          color="grey lighten-3"
         >
           <!-- CHAT TEXTAREA -->
           <!-- CHAT SEND BTN -->
@@ -102,7 +102,7 @@ export default {
     sendText(text) {
       console.log("Sending...", text);
     },
-    reportUser() {
+    unmatch() {
       //
     }
   },

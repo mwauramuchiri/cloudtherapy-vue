@@ -1,6 +1,10 @@
 <template>
   <!-- <v-textarea></v-textarea> -->
-  <v-sheet outline class="d-inline-flex px-3 align-end chat-input ct-shadow">
+  <v-sheet
+    outline
+    color="transparent"
+    class="d-inline-flex px-2 align-end chat-input"
+  >
     <EmojiBar
       @focus-input-field="focusInputField()"
       @add-emoji="addEmoji"
@@ -111,11 +115,11 @@ export default {
 <style lang="scss">
 .chat-input {
   border-radius: $ct-border-radius !important;
-  border: 1px solid rgba($color: #000000, $alpha: 0.15) !important;
-  border-color: rgba($color: #000000, $alpha: 0.15) !important;
+  // border: 1px solid rgba($color: #000000, $alpha: 0.15) !important;
+  // border-color: rgba($color: #000000, $alpha: 0.15) !important;
   // .grey .lighten-1
-  background-color: rgba($color: #fafafa, $alpha: 1) !important;
-  width: 87% !important;
+  // background-color: rgba($color: #fafafa, $alpha: 1) !important;
+  width: 100% !important;
 
   > *:not(.chat-input__textarea) {
     margin-bottom: 4px !important;
@@ -125,7 +129,7 @@ export default {
 @media screen and (min-width: $lg-width) {
   .chat-input {
     max-width: 640px !important;
-    padding: 6px !important;
+    padding: 6px 0 !important;
     margin-bottom: 20px !important;
   }
 
@@ -141,6 +145,7 @@ export default {
 
 .chat-input__textarea,
 .chat-input__textarea *,
+.chat-input__textarea *::before,
 .chat-input__textarea *::after {
   border: none !important;
 }

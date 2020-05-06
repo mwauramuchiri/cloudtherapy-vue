@@ -23,6 +23,7 @@
       </v-container>
 
       <v-container v-else class="--container">
+        <!-- IF CHAT EMPTY -->
         <v-list three-line>
           <template v-for="(chat, index) in chats">
             <v-list-item

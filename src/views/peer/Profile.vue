@@ -36,14 +36,56 @@
         </template>
         <!-- div -->
         <div class="mt-8 pb-5">
-          <v-select :items="form.genders" label="Gender" outlined></v-select>
-          <v-select :items="form.genders" label="Age" outlined></v-select>
-          <v-select :items="form.genders" label="County" outlined></v-select>
+          <v-row class="align-start">
+            <v-col class="grow-shrink-0">
+              <v-text-field
+                label="Anonymous name"
+                outlined
+                :value="userName"
+                readonly
+              ></v-text-field>
+            </v-col>
+            <v-col class="shrink">
+              <v-btn
+                :disabled="loadingPage"
+                @click="generateName()"
+                :loading="loadingPage || isGeneratingName"
+                depressed
+                large
+                color="blue lighten-4"
+              >
+                Generate
+              </v-btn>
+            </v-col>
+          </v-row>
           <v-select
             :items="form.genders"
+            v-model="userGender"
+            label="Gender"
+            outlined
+          ></v-select>
+          <v-slider
+            v-model="userAge"
+            :thumb-size="24"
+            :min="13"
+            :max="80"
+            thumb-label="always"
+            label="Age"
+            class="mt-5"
+          ></v-slider>
+          <v-select
+            :items="form.counties"
+            v-model="userCounty"
+            label="County"
+            outlined
+          ></v-select>
+          <v-select
+            :items="form.subCounties"
+            v-model="userSubCounty"
             label="Sub-County"
             outlined
           ></v-select>
+
           <v-btn
             x-large
             class="mb-5 mt-5"
@@ -62,14 +104,18 @@
 
 <script>
 import { mapGetters } from "vuex";
+import chance from "chance";
+
+const _chance = new chance();
 
 export default {
   name: "PeerProfile",
   data() {
     return {
-      isNewUser: false,
+      isNewUser: true,
       isSavingProfile: false,
-      userGender: undefined,
+      isGeneratingName: false,
+      userGender: "male",
       userAge: undefined,
       userCounty: undefined,
       userSubCounty: undefined,
@@ -105,11 +151,32 @@ export default {
       setTimeout(() => {
         this.isSavingProfile = false;
       }, 1500);
+    },
+    async generateName() {
+      this.isGeneratingName = true;
+
+      let i = 0;
+      const guessesMaxCount = Math.ceil(Math.random() * 10);
+      const $this = this;
+      // console.log(`let me guess ${guessesMaxCount} times`);
+
+      (async function generate() {
+        const name = _chance.name({ gender: $this.userGender });
+        $this.$store.commit("user/newUserName", name);
+
+        await $this.$nextTick();
+
+        if (i++ < guessesMaxCount) {
+          setTimeout(generate, 250);
+        } else {
+          await $this.$nextTick();
+          $this.isGeneratingName = false;
+        }
+      })();
     }
   },
   created() {
     // get form options
-    // console.log(this.$store);
     this.loadingPage = false;
   }
 };
