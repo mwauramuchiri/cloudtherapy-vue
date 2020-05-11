@@ -60,7 +60,7 @@
                 "
               >
                 <v-list-item-avatar size="44" color="green lighten-5">
-                  <v-img :src="chat.avatar" v-if="chat.therapist"></v-img>
+                  <v-img :src="chat.avatar" v-if="chat.therapist" />
                   <h5
                     class="black--text headline m-0 font-weight-bold"
                     style="font-size: 0.875rem !important; opacity: 0.32;"
@@ -83,6 +83,7 @@
                       THERAPIST
                     </v-chip>
                   </v-list-item-title>
+
                   <v-list-item-subtitle v-html="chat.message" />
                   <h6
                     class="grey--text text--darken-1 text-right ma-0"
@@ -90,6 +91,7 @@
                   ></h6>
                 </v-list-item-content>
               </v-list-item>
+
               <v-divider :key="`div-${index}`" inset />
             </template>
           </v-list>
@@ -154,9 +156,7 @@ export default {
     initials(name) {
       return name
         .split(" ")
-        .map(n => {
-          return n.slice(0, 1);
-        })
+        .map(n => n.slice(0, 1))
         .join("")
         .toUpperCase();
     }
