@@ -8,7 +8,7 @@ import vuetify from "./plugins/vuetify";
 import "@mdi/font/css/materialdesignicons.css";
 
 import LoadingSpinner from "./components/LoadingSpinner.vue";
-import UiMixin from "./mixins/ui";
+import UiMixin from "./mixins/UiMixin";
 
 // Global files
 Vue.mixin(UiMixin);

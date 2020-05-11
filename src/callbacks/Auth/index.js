@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 //* IMPORTS
 /* 
     This file acts as an aggregator for functions related to the auth callbacks
@@ -7,7 +8,7 @@ import handleAuthChanged from './handleAuthChanged';
 import handleAuthSuccess from './handleAuthSuccess';
 import handleAuthFailed from './handleAuthFailed';
 
-export default {
+export {
     handleAuthChanged,
     handleAuthSuccess,
     handleAuthFailed

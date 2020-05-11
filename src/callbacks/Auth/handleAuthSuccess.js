@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 // Services
 import AuthService from '../../services/AuthService';
 

@@ -1,22 +1,25 @@
+import { updateProp } from "./_helpers";
+
 export default {
   namespaced: true,
   state: {
-    user_: {
+    user: {
       id: 4444,
       name: "Brenda"
     }
   },
   getters: {
     userName(state) {
-      return state.user_.name;
+      return state.user.name;
     }
   },
   mutations: {
     newUserName(state, name) {
-      state.user_.name = name;
+      state.user.name = name;
     },
     userData(state, [prop, data]) {
-      state.user_[prop] = data;
-    }
+      state.user[prop] = data;
+    },
+    updateProp
   }
 };

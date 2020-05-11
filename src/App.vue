@@ -1,17 +1,30 @@
 <template>
   <div id="app">
     <transition name="fade" mode="out-in" appear>
-      <router-view />
+      <template v-if="isLoadingAuth">
+        <!--  -->
+        <h6>Please wait...</h6>
+      </template>
+
+      <router-view v-else />
     </transition>
   </div>
 </template>
 
 <script>
+import { auth as firebaseAuth } from "@/utils/firebase";
+import { handleAuthChanged } from "@/callbacks/Auth";
+
 export default {
   name: "App",
-  data: () => ({
-    //
-  })
+  computed: {
+    isLoadingAuth() {
+      return this.$store.state.auth.isLoadingAuth;
+    }
+  },
+  created() {
+    firebaseAuth.onAuthStateChanged(handleAuthChanged);
+  }
 };
 </script>
 

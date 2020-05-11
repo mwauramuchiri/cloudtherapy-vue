@@ -16,13 +16,13 @@
 
             <transition name="fade" mode="out-in" appear>
               <!-- BUTTONS -->
-              <v-col cols="12" class="mt-5" v-if="!loadingPage">
+              <v-col cols="12" class="mt-5" v-if="!isLoggedIn">
                 <v-btn
                   :min-width="228"
                   width="300px"
                   x-large
                   class="mt-8 ct-btn-facebook ct-shadow"
-                  @click="btnClick('')"
+                  @click="signInWithRedirect('facebook')"
                 >
                   <v-icon left>mdi-facebook</v-icon>
                   Sign in with Facebook
@@ -33,7 +33,7 @@
                   width="300px"
                   x-large
                   class="mt-8 ct-btn-twitter ct-shadow"
-                  @click="btnClick('')"
+                  @click="signInWithRedirect('twitter')"
                 >
                   <v-icon left>mdi-twitter</v-icon>
                   Sign in with Twitter
@@ -44,7 +44,7 @@
                   width="300px"
                   x-large
                   class="mt-8 ct-btn-google ct-shadow"
-                  @click="btnClick('')"
+                  @click="signInWithRedirect('google')"
                 >
                   <v-icon left>mdi-google</v-icon>
                   Sign in with Google
@@ -59,15 +59,24 @@
 </template>
 
 <script>
+import { signInWithRedirect } from "@/utils/auth";
+
 export default {
   name: "Auth",
-  methods: {
-    btnClick() {
-      //
+  computed: {
+    isLoggedIn() {
+      return this.$store.state.auth.isLoggedIn;
     }
   },
-  created() {
-    this.loadingPage = false;
+  methods: {
+    signInWithRedirect
+  },
+  mounted() {
+    if (this.isLoggedIn) {
+      this.goTo({
+        name: "UserView"
+      });
+    }
   }
 };
 </script>
