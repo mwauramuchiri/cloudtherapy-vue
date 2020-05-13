@@ -88,7 +88,7 @@
             class="mb-5 mt-5"
             block
             color="primary"
-            :disabled="isSavingProfile"
+            :disabled="isSavingProfile || !canSaveProfile"
             @click="saveProfile"
           >
             {{ btnText }}
@@ -159,6 +159,11 @@ export default {
     subCounties() {
       // eslint-disable-next-line prettier/prettier
       return (_find(kenyanCounties, { name: this.userCounty }) || {}).sub_counties || [];
+    },
+    canSaveProfile() {
+      return (
+        this.userDob && this.userCounty && this.userSubCounty && this.userGender
+      );
     }
   },
   methods: {
