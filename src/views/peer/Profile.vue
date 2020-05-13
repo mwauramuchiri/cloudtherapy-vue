@@ -118,7 +118,7 @@ import _find from "lodash/find";
 import kenyanCounties from "@/data/kenya_counties";
 
 // Services
-import * as UserService from "@/services/UserService";
+import UserService from "@/services/UserService";
 
 // Utils
 import { getDateYearsAgo } from "@/utils/date";
