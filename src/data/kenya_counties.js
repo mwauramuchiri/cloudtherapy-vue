@@ -633,6 +633,4 @@ const kenyanCounties = [
   }
 ];
 
-export {
-    kenyanCounties
-};
+export default kenyanCounties;

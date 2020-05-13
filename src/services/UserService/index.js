@@ -6,6 +6,4 @@
 import updateUser from "./updateUser";
 
 //* EXPORTS
-export default {
-  updateUser
-};
+export { updateUser };

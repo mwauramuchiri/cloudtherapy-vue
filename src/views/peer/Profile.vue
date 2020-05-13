@@ -71,6 +71,7 @@
           <v-select
             :items="form.counties"
             v-model="userCounty"
+            :value="userCounty"
             item-text="name"
             item-value="value"
             label="County"
@@ -96,6 +97,12 @@
         </div>
       </v-container>
     </transition>
+    <v-snackbar v-model="openSnackBar" top>
+      {{ snackBarMessage }}
+      <v-btn color="yellow" text @click="openSnackBar = false">
+        Close
+      </v-btn>
+    </v-snackbar>
   </v-sheet>
 </template>
 
@@ -106,7 +113,10 @@ import UserMixin from "@/mixins/UserMixin";
 import * as _find from "lodash/find";
 
 // Data
-import { kenyanCounties } from "@/data/kenya_counties";
+import kenyanCounties from "@/data/kenya_counties";
+
+// Services
+import * as UserService from "@/services/UserService";
 
 const _chance = new chance();
 
@@ -124,6 +134,8 @@ export default {
       userDob: undefined,
       userCounty: "Nairobi",
       userSubCounty: undefined,
+      openSnackBar: false,
+      snackBarMessage: "Success!",
       form: {
         genders: [
           {
@@ -141,7 +153,12 @@ export default {
   },
   watch: {
     userGender() {
+      if (this.loadingPage) return;
       this.generateName();
+    },
+    userCounty() {
+      if (this.loadingPage) return;
+      this.userSubCounty = this.subCounties[0];
     }
   },
   computed: {
@@ -164,15 +181,33 @@ export default {
       return (
         this.userDob && this.userCounty && this.userSubCounty && this.userGender
       );
+    },
+    userData() {
+      return {
+        name: this.userName,
+        gender: this.userGender,
+        dob: this.userDob,
+        county: this.userCounty,
+        subCounty: this.userSubCounty
+      };
     }
   },
   methods: {
+    prepopulateProfile() {
+      return this.waitForUser().then(user => {
+        this.userDob = user.dob;
+        this.userCounty = user.county;
+        this.userSubCounty = user.subCounty;
+        this.userGender = user.gender;
+      });
+    },
     saveProfile() {
       this.isSavingProfile = true;
 
-      setTimeout(() => {
+      UserService.updateUser(this.userData).then(() => {
+        this.openSnackBar = true;
         this.isSavingProfile = false;
-      }, 1500);
+      });
     },
     async generateName() {
       this.isGeneratingName = true;
@@ -200,7 +235,9 @@ export default {
   created() {
     this.form.counties = kenyanCounties.map(county => county.name);
 
-    this.loadingPage = false;
+    this.prepopulateProfile().finally(() => {
+      this.loadingPage = false;
+    });
   }
 };
 </script>

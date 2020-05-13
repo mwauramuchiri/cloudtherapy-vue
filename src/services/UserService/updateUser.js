@@ -2,24 +2,27 @@ import axios from "axios";
 
 import { BASE_API_URL } from "../../constants";
 
-import { userStore } from "../../stores";
-
-let userId;
+import store from "../../store";
 
 /** Update user */
-const updateUser = updateData => {
+const updateUser = function(updateData) {
+  let user = store.state.user.user;
+  let userId = user.uid;
+
   const _requestUrl = `${BASE_API_URL}/user/${userId}`;
   const _requestData = {
     data: updateData
   };
 
-  return axios.patch(_requestUrl, _requestData);
-};
+  return axios.patch(_requestUrl, _requestData).then(() => {
+    updateData.isNew = false;
 
-// Get user id from user store
-userStore.subscribe(user => {
-  userId = user.uid;
-});
+    store.commit("user/updateProp", {
+      name: "user",
+      value: { ...user, ...updateData }
+    });
+  });
+};
 
 //* EXPORTS
 export default updateUser;
