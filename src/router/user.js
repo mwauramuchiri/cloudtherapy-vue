@@ -27,7 +27,7 @@ export default [
       // Peer routes
       {
         path: "profile",
-        name: "PeerProfile",
+        name: "userProfile",
         component: PeerProfile
       }
     ]

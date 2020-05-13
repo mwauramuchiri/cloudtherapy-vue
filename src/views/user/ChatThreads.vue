@@ -10,17 +10,16 @@
           color="primary"
           :disabled="findingPeers"
           @click="findPeers()"
+          v-if="chats.length"
         >
-          {{ findPeersBtnText }}
+          {{ findingPeersBtnText }}
         </v-btn>
       </div>
     </v-app-bar>
 
     <transition name="fade" mode="out-in" appear>
       <!-- LOADING PAGE -->
-      <v-container class="fill-height" v-if="loadingPage">
-        <LoadingSpinner center />
-      </v-container>
+      <Loading v-if="loadingPage">Getting chats </Loading>
 
       <v-container
         v-else
@@ -41,9 +40,9 @@
                 class="px-5 text-white mt-3"
                 color="primary"
                 :disabled="findingPeers"
-                @click="findPeers()"
+       s         @click="findPeers()"
               >
-                {{ findPeersBtnText }}
+                {{ findingPeersBtnText }}
               </v-btn>
             </v-col>
           </v-row>
@@ -107,7 +106,7 @@ export default {
   data() {
     return {
       findingPeers: false,
-      findPeersBtnText: "Find Peers",
+      // findingPeersBtnText: "Find Peers",
       chats: [],
       // don't know if we need this as a data prop or computed.
       // Depends on the data for chats
@@ -123,17 +122,20 @@ export default {
         .toUpperCase();
     }
   },
+  computed: {
+    findingPeersBtnText() {
+      return !this.findingPeers ? "Find Peers" : "Working...";
+    }
+  },
   methods: {
     findPeers() {
       // trigger an overlay or something
       //    loading state
       this.findingPeers = true;
-      this.findPeersBtnText = "working...";
 
       // ajax
       setTimeout(() => {
         this.findingPeers = false;
-        this.findPeersBtnText = "Find Peers";
       }, 2000);
     }
   },

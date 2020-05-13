@@ -4,15 +4,20 @@ import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
-// import "roboto-fontface/css/roboto/roboto-fontface.css";
 import "@mdi/font/css/materialdesignicons.css";
 
-import LoadingSpinner from "./components/LoadingSpinner.vue";
 import UiMixin from "./mixins/UiMixin";
 
-// Global files
+import { formatDate } from "./utils/date";
+
+import Loading from "./components/Loading.vue";
+
+// Globals
 Vue.mixin(UiMixin);
-Vue.component("LoadingSpinner", LoadingSpinner);
+
+Vue.filter("formatDate", formatDate);
+
+Vue.component("Loading", Loading);
 
 Vue.config.productionTip = false;
 

@@ -3,11 +3,11 @@
     <v-app-bar app height="86px" color="rgba(255, 255, 255, 0)" elevation="0" />
     <v-content style="padding-top: var(--top-app-bar-height) !important;">
       <transition :name="transitionName" appear mode="out-in">
-        <router-view></router-view>
+        <router-view />
       </transition>
     </v-content>
     <!-- BOTTOM NAV -->
-    <v-bottom-navigation fixed color="blue">
+    <v-bottom-navigation fixed color="blue" v-if="!isNewUser">
       <v-btn :to="{ name: 'ChatThreads' }">
         <span>Chats</span>
         <v-icon>mdi-forum-outline</v-icon>
@@ -18,7 +18,7 @@
         <v-icon>mdi-heart-pulse</v-icon>
       </v-btn>
 
-      <v-btn :to="{ name: 'PeerProfile' }">
+      <v-btn :to="{ name: 'userProfile' }">
         <span>Profile</span>
         <v-icon>mdi-account-outline</v-icon>
       </v-btn>
@@ -27,8 +27,11 @@
 </template>
 
 <script>
+import UserMixin from "@/mixins/UserMixin";
+
 export default {
   name: "UserView",
+  mixins: [UserMixin],
   data() {
     return {
       transitionName: "fade" // use slide left|right transitions
@@ -38,14 +41,14 @@ export default {
     // change transition name
     if (
       (to.name === "Therapists" && from.name === "ChatThreads") ||
-      (to.name === "PeerProfile" &&
+      (to.name === "userProfile" &&
         (from.name === "Therapists" || from.name === "ChatThreads"))
     ) {
       this.transitionName = "slide-right";
     } else if (
-      (to.name === "Therapists" && from.name === "PeerProfile") ||
+      (to.name === "Therapists" && from.name === "userProfile") ||
       (to.name === "ChatThreads" &&
-        (from.name === "Therapists" || from.name === "PeerProfile"))
+        (from.name === "Therapists" || from.name === "userProfile"))
     ) {
       this.transitionName = "slide-left";
     } else {

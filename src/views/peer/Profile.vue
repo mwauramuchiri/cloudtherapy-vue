@@ -11,14 +11,7 @@
 
     <transition name="fade" mode="out-in" appear>
       <!-- LOADING PAGE -->
-      <v-container
-        align="center"
-        justify="center"
-        class="fill-height"
-        v-if="loadingPage"
-      >
-        <LoadingSpinner center />
-      </v-container>
+      <Loading v-if="loadingPage" />
 
       <v-container
         style="max-width: 440px !important;"
@@ -32,7 +25,7 @@
           </h4>
         </template>
         <template v-else>
-          <h3 class="text-center">Welcome {{ userName }}</h3>
+          <h3 class="text-center">Welcome Back</h3>
         </template>
         <!-- div -->
         <div class="mt-8 pb-5">
@@ -45,7 +38,7 @@
                 readonly
               ></v-text-field>
             </v-col>
-            <v-col class="shrink">
+            <v-col class="shrink" style="padding-top: 18px !important;">
               <v-btn
                 :disabled="loadingPage"
                 @click="generateName()"
@@ -60,27 +53,31 @@
           </v-row>
           <v-select
             :items="form.genders"
+            item-text="name"
+            item-value="value"
             v-model="userGender"
             label="Gender"
             outlined
           ></v-select>
-          <v-slider
-            v-model="userAge"
-            :thumb-size="24"
-            :min="13"
-            :max="80"
-            thumb-label="always"
-            label="Age"
-            class="mt-5"
-          ></v-slider>
+          <!-- <DatePicker v-model="userDob" label="Date of Birth" /> -->
+          <v-text-field
+            v-model="userDob"
+            label="DOB"
+            type="date"
+            outlined
+            prepend-inner-icon="mdi-calendar"
+          ></v-text-field>
+
           <v-select
             :items="form.counties"
             v-model="userCounty"
+            item-text="name"
+            item-value="value"
             label="County"
             outlined
           ></v-select>
           <v-select
-            :items="form.subCounties"
+            :items="subCounties"
             v-model="userSubCounty"
             label="Sub-County"
             outlined
@@ -105,27 +102,47 @@
 <script>
 import { mapGetters } from "vuex";
 import chance from "chance";
+import UserMixin from "@/mixins/UserMixin";
+import * as _find from "lodash/find";
+
+// Data
+import { kenyanCounties } from "@/data/kenya_counties";
 
 const _chance = new chance();
 
 export default {
   name: "PeerProfile",
+  components: {
+    // DatePicker
+  },
+  mixins: [UserMixin],
   data() {
     return {
-      isNewUser: true,
       isSavingProfile: false,
       isGeneratingName: false,
       userGender: "male",
-      userAge: undefined,
-      userCounty: undefined,
+      userDob: undefined,
+      userCounty: "Nairobi",
       userSubCounty: undefined,
       form: {
-        genders: [],
-        ages: [],
-        counties: [],
-        subCounties: []
+        genders: [
+          {
+            name: "Male",
+            value: "male"
+          },
+          {
+            name: "Female",
+            value: "female"
+          }
+        ],
+        counties: []
       }
     };
+  },
+  watch: {
+    userGender() {
+      this.generateName();
+    }
   },
   computed: {
     // eslint-disable-next-line prettier/prettier
@@ -133,15 +150,15 @@ export default {
       'userName'
     ]),
     btnText() {
-      if (this.isSavingProfile) {
-        return "Saving...";
-      }
+      if (this.isSavingProfile) return "Saving...";
 
-      if (this.isNewUser) {
-        return "Save Profile";
-      }
+      if (this.isNewUser) return "Save Profile";
 
       return "Update Profile";
+    },
+    subCounties() {
+      // eslint-disable-next-line prettier/prettier
+      return (_find(kenyanCounties, { name: this.userCounty }) || {}).sub_counties || [];
     }
   },
   methods: {
@@ -176,7 +193,8 @@ export default {
     }
   },
   created() {
-    // get form options
+    this.form.counties = kenyanCounties.map(county => county.name);
+
     this.loadingPage = false;
   }
 };

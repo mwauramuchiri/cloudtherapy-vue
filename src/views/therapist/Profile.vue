@@ -10,7 +10,7 @@
         class="fill-height"
         v-if="loadingPage"
       >
-        <LoadingSpinner center />
+        <!-- <LoadingSpinner center /> -->
       </v-container>
 
       <v-container class="fill-height --container" v-else>

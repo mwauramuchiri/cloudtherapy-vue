@@ -1,11 +1,7 @@
 <template>
   <div id="app">
     <transition name="fade" mode="out-in" appear>
-      <template v-if="isLoadingAuth">
-        <!--  -->
-        <h6>Please wait...</h6>
-      </template>
-
+      <Loading v-if="isLoadingAuth" />
       <router-view v-else />
     </transition>
   </div>
@@ -22,6 +18,16 @@ export default {
   name: "App",
   mixins: [UserMixin],
   watch: {
+    $route() {
+      this.waitForUser()
+        .then(user => {
+        if (user.isNew && this.$route.name !== "userProfile") {
+          this.goTo({
+            name: "userProfile"
+          });
+        }
+      });
+    },
     // [Logged in] Chats to Auth
     async isLoggedIn(newVal) {
       if (!newVal) {
@@ -41,6 +47,9 @@ export default {
   },
   created() {
     firebaseAuth.onAuthStateChanged(handleAuthChanged);
+
+    // eslint-disable-next-line prettier/prettier
+
   }
 };
 </script>

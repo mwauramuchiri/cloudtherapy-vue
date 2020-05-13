@@ -1,5 +1,10 @@
 export default {
   name: "UserMixin",
+  computed: {
+    isNewUser() {
+      return this.$store.state.user.user.isNew;
+    }
+  },
   methods: {
     waitForUser() {
       let currUser = this.$store.state.user.user;
