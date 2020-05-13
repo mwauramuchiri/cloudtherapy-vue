@@ -101,15 +101,20 @@
 </template>
 
 <script>
+// Mixins
+import UserMixin from "@/mixins/UserMixin";
+
+// Services
+import PeerService from "@/services/PeerService";
+import ChatService from "@/services/ChatService";
+
 export default {
   name: "ChatThreads",
+  mixins: [UserMixin],
   data() {
     return {
       findingPeers: false,
-      chats: [],
-      // don't know if we need this as a data prop or computed.
-      // Depends on the data for chats
-      newChats: []
+      chats: []
     };
   },
   filters: {
@@ -132,15 +137,18 @@ export default {
       //    loading state
       this.findingPeers = true;
 
-      // ajax
-      setTimeout(() => {
+      PeerService.matchPeers().then(() => {
         this.findingPeers = false;
-      }, 2000);
+      });
     }
   },
   created() {
-    this.loadingPage = false;
-    // this.chats = [];
+    this.waitForUser()
+      .then(ChatService.getChats)
+      .then(response => {
+        console.debug("Chats response: ", response);
+        this.loadingPage = false;
+      });
   }
 };
 </script>
