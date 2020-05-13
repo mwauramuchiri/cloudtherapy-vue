@@ -11,7 +11,7 @@ import store from '../../store';
 const handleAuthChanged = async user => {
     store.commit('auth/updateProp', {
         name: 'isLoadingAuth',
-        value: false
+        value: true
     });
 
     // User is logged in
@@ -37,11 +37,12 @@ const handleAuthChanged = async user => {
     } else {
         console.log('user logged out')
         // Not logged in
-        store.commit('auth/updateProp', {
-            name: 'isLoadingAuth',
-            value: false
-        });
     }
+
+    store.commit('auth/updateProp', {
+        name: 'isLoadingAuth',
+        value: false
+    });
 };
 
 export default handleAuthChanged;

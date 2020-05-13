@@ -7,7 +7,7 @@
           CLOUD THERAPY LOGO
         </v-col>
 
-        <v-col cols="12" style="margin-top: 36px;">
+        <v-col cols="12" style="margin-top: 36px;" v-if="!isLoggedIn">
           <v-row vertical align="center" justify="center">
             <v-col cols="12">
               <h1 class="font-weight-bold">Hi There</h1>
@@ -15,8 +15,8 @@
             </v-col>
 
             <transition name="fade" mode="out-in" appear>
-              <!-- BUTTONS -->
-              <v-col cols="12" class="mt-5" v-if="!isLoggedIn">
+              <!-- SOCIAL LOGIN BUTTONS -->
+              <v-col cols="12" class="mt-5" v-if="true">
                 <v-btn
                   :min-width="228"
                   width="300px"

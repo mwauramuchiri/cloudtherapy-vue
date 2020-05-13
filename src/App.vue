@@ -41,10 +41,6 @@ export default {
   },
   created() {
     firebaseAuth.onAuthStateChanged(handleAuthChanged);
-
-    this.waitForUser()
-      .then(user => console.log("OG user: ", user))
-      .catch(err => console.log("Something went wrong as Gabu said: ", err));
   }
 };
 </script>
