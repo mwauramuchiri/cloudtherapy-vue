@@ -13,7 +13,7 @@
         class="fill-height"
         v-if="loadingPage"
       >
-        <!-- <LoadingSpinner size="64" center /> -->
+        <Loading />
       </v-container>
 
       <template v-else>
@@ -70,7 +70,7 @@
 
           <!-- LOADING CHATS -->
           <v-container class="fill-height" v-if="loadingChats">
-            <LoadingSpinner size="40" center />
+            <Loading />
           </v-container>
 
           <template v-else class="--container ct-h-100">
