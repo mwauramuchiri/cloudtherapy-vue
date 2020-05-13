@@ -64,6 +64,8 @@
             v-model="userDob"
             label="DOB"
             type="date"
+            min="1900-01-01"
+            :max="form.minDob"
             outlined
             prepend-inner-icon="mdi-calendar"
           ></v-text-field>
@@ -110,13 +112,16 @@
 import { mapGetters } from "vuex";
 import chance from "chance";
 import UserMixin from "@/mixins/UserMixin";
-import * as _find from "lodash/find";
+import _find from "lodash/find";
 
 // Data
 import kenyanCounties from "@/data/kenya_counties";
 
 // Services
 import * as UserService from "@/services/UserService";
+
+// Utils
+import { getDateYearsAgo } from "@/utils/date";
 
 const _chance = new chance();
 
@@ -147,7 +152,8 @@ export default {
             value: "female"
           }
         ],
-        counties: []
+        counties: [],
+        minDob: getDateYearsAgo(18)
       }
     };
   },
