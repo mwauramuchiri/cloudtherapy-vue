@@ -63,6 +63,16 @@ import { signInWithRedirect } from "@/utils/auth";
 
 export default {
   name: "Auth",
+  watch: {
+    // [Logged in] Auth to chats
+    async isLoggedIn(newVal) {
+      if (newVal) {
+        this.goTo({
+          name: "UserView"
+        });
+      }
+    }
+  },
   computed: {
     isLoggedIn() {
       return this.$store.state.auth.isLoggedIn;
@@ -72,6 +82,7 @@ export default {
     signInWithRedirect
   },
   mounted() {
+    //? Consider moving this to Mixin to allow for plugin redirects to other pages if user is logged in
     if (this.isLoggedIn) {
       this.goTo({
         name: "UserView"

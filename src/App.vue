@@ -15,15 +15,36 @@
 import { auth as firebaseAuth } from "@/utils/firebase";
 import { handleAuthChanged } from "@/callbacks/Auth";
 
+// Mixins
+import UserMixin from "@/mixins/UserMixin";
+
 export default {
   name: "App",
+  mixins: [UserMixin],
+  watch: {
+    // [Logged in] Chats to Auth
+    async isLoggedIn(newVal) {
+      if (!newVal) {
+        await this.$nextTick();
+
+        this.goTo("/");
+      }
+    }
+  },
   computed: {
     isLoadingAuth() {
       return this.$store.state.auth.isLoadingAuth;
+    },
+    isLoggedIn() {
+      return this.$store.state.auth.isLoggedIn;
     }
   },
   created() {
     firebaseAuth.onAuthStateChanged(handleAuthChanged);
+
+    this.waitForUser()
+      .then(user => console.log("OG user: ", user))
+      .catch(err => console.log("Something went wrong as Gabu said: ", err));
   }
 };
 </script>

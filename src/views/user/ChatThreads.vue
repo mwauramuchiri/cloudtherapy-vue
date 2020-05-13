@@ -108,45 +108,7 @@ export default {
     return {
       findingPeers: false,
       findPeersBtnText: "Find Peers",
-      chats: [
-        {
-          id: 232,
-          avatar:
-            "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1534&q=80",
-          name: "User Mike",
-          message:
-            "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium",
-          time: "16:24",
-          therapist: true
-        },
-        {
-          id: 2324,
-          avatar:
-            "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1534&q=80",
-          name: "User Mike",
-          message:
-            "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium",
-          time: "16:24"
-        },
-        {
-          id: 67765,
-          avatar:
-            "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1534&q=80",
-          name: "User Mike",
-          message:
-            "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium",
-          time: "16:24"
-        },
-        {
-          id: 256757632,
-          avatar:
-            "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1534&q=80",
-          name: "User Mike",
-          message:
-            "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium",
-          time: "16:24"
-        }
-      ],
+      chats: [],
       // don't know if we need this as a data prop or computed.
       // Depends on the data for chats
       newChats: []

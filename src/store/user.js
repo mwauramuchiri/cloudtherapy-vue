@@ -3,10 +3,7 @@ import { updateProp } from "./_helpers";
 export default {
   namespaced: true,
   state: {
-    user: {
-      id: 4444,
-      name: "Brenda"
-    }
+    user: {}
   },
   getters: {
     userName(state) {

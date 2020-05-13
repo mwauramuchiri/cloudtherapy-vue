@@ -7,12 +7,6 @@ import handleAuthSuccess from './handleAuthSuccess';
 import AuthService from '../../services/AuthService';
 import store from '../../store';
 
-// Stores
-// import {
-//     authStore,
-//     userStore
-// } from '../../stores';
-
 /** Handle any changes to auth state ~ firebase */
 const handleAuthChanged = async user => {
     store.commit('auth/updateProp', {
@@ -27,15 +21,6 @@ const handleAuthChanged = async user => {
 
         if (!authDataFromApi) return;
 
-        // Update auth details
-        // authStore.update(storeVal => {
-        //     storeVal = {
-        //         ...storeVal,
-        //         isLoggedIn: true
-        //     };
-
-        //     return storeVal;
-        // });
 
         store.commit('auth/updateProp', {
             name: 'isLoggedIn',
@@ -49,13 +34,6 @@ const handleAuthChanged = async user => {
             name: 'user',
             value: userFromApi
         });
-
-
-        // userStore.update((storeVal) => {
-        //     storeVal = userFromApi;
-        //     return storeVal;
-        // });
-
     } else {
         console.log('user logged out')
         // Not logged in
