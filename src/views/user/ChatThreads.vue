@@ -40,7 +40,7 @@
                 class="px-5 text-white mt-3"
                 color="primary"
                 :disabled="findingPeers"
-       s         @click="findPeers()"
+                @click="findPeers()"
               >
                 {{ findingPeersBtnText }}
               </v-btn>
@@ -106,7 +106,6 @@ export default {
   data() {
     return {
       findingPeers: false,
-      // findingPeersBtnText: "Find Peers",
       chats: [],
       // don't know if we need this as a data prop or computed.
       // Depends on the data for chats
@@ -142,7 +141,6 @@ export default {
   created() {
     this.loadingPage = false;
     // this.chats = [];
-    setTimeout(() => {}, 1000);
   }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <transition name="fade" mode="out-in" appear>
-      <Loading v-if="isLoadingAuth" />
+      <Loading v-if="isLoadingAuth" full-screen />
       <router-view v-else />
     </transition>
   </div>
@@ -19,8 +19,7 @@ export default {
   mixins: [UserMixin],
   watch: {
     $route() {
-      this.waitForUser()
-        .then(user => {
+      this.waitForUser().then(user => {
         if (user.isNew && this.$route.name !== "userProfile") {
           this.goTo({
             name: "userProfile"
@@ -47,9 +46,6 @@ export default {
   },
   created() {
     firebaseAuth.onAuthStateChanged(handleAuthChanged);
-
-    // eslint-disable-next-line prettier/prettier
-
   }
 };
 </script>

@@ -60,8 +60,6 @@ const logout = (redirectUrl = "") => {
         });
 }
 
-console.log(firebase.auth());
-
 export {
     signInWithRedirect,
     signInWithPopup,

@@ -1,31 +1,36 @@
 <template>
-  <v-sheet class="size-full">
-    <v-progress-circular
-      indeterminate
-      :size="64"
-      :width="3"
-      color="primary"
-    />
+  <v-sheet :class="['loading', { 'loading--size-full': fullScreen }]">
+    <v-progress-circular indeterminate :size="64" :width="3" color="primary" />
     <h5 style="margin-top: 12px;"><slot>Just a sec...</slot></h5>
   </v-sheet>
 </template>
 
 <script>
-  export default {
-    name: "Loading"
-  };
+export default {
+  name: "Loading",
+  props: {
+    fullScreen: {
+      type: Boolean,
+      default: false
+    }
+  }
+};
 </script>
 
 <style scoped lang="scss">
- .size-full {
+.loading {
   width: 100%;
-  height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  
-  &*{
+  height: 100%;
+  justify-content: center;
+
+  &.loading--size-full {
+    height: 100vh;
+  }
+
+  &* {
     font-weight: 300;
   }
 }

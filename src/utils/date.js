@@ -28,7 +28,7 @@ const formatDate = (date, format = "DD MMMM YYYY") => {
   return friendlyLocalDate;
 };
 
-/** Get the date `yearsRequired` ago. 
+/** Get the date `yearsRequired` ago.
  * @example Used to find the latest date of birth a user may need to be to use the site
  * @param {Number} yearsRequired Years required to use the site
  */
