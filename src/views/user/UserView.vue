@@ -5,7 +5,7 @@
     </transition>
     <!-- BOTTOM NAV -->
     <v-app class="ct-disable-height-styles">
-      <v-bottom-navigation fixed color="primary darken-2" v-if="!isNewUser">
+      <v-bottom-navigation fixed color="primary darken-1" v-if="!isNewUser">
         <v-btn :to="{ name: 'ChatThreads' }">
           <span>Chats</span>
           <v-icon>mdi-forum-outline</v-icon>

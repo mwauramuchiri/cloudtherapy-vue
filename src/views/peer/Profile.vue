@@ -90,9 +90,6 @@
 
     <v-snackbar v-model="openSnackBar" top>
       {{ snackBarMessage }}
-      <v-btn color="yellow" text @click="openSnackBar = false">
-        Close
-      </v-btn>
     </v-snackbar>
   </v-app>
 </template>

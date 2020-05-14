@@ -104,6 +104,10 @@
         </v-container>
       </transition>
     </v-content>
+
+    <v-snackbar v-model="openSnackBar" top>
+      {{ snackBarMessage }}
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -124,7 +128,9 @@ export default {
   mixins: [UserMixin],
   data() {
     return {
-      findingPeers: false
+      findingPeers: false,
+      openSnackBar: false,
+      snackBarMessage: "",
     };
   },
   computed: {
