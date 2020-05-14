@@ -5,7 +5,6 @@
       <v-spacer />
       <div class="mr-5">
         <v-btn
-          large
           class="px-5 text-white"
           color="primary"
           :disabled="findingPeers || findingPeersDisabled"
