@@ -5,6 +5,7 @@
     z-index="77"
     max-height="41.5vh"
     attach
+    eager
     transition="slide-y-reverse-transition"
     class="elevation-0 emojibar"
     :allow-overflow="false"
@@ -38,7 +39,6 @@
 <script>
 import { Picker } from "emoji-mart-vue";
 import BubbleCaret from "@/components/BubbleCaret.vue";
-import _debounce from "lodash/debounce";
 
 export default {
   name: "EmojiBar",
@@ -50,7 +50,7 @@ export default {
     return {};
   },
   methods: {
-    toggleEmojiBar: _debounce(function(isOpen) {
+    toggleEmojiBar(isOpen) {
       switch (isOpen) {
         case true:
           this.$emit("emoji-bar-open");
@@ -59,7 +59,7 @@ export default {
           this.$emit("focus-input-field");
           break;
       }
-    }, 150),
+    },
     addEmoji(emoji) {
       // console.log(emoji);
       this.$emit("add-emoji", emoji);
