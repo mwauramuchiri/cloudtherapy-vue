@@ -8,7 +8,7 @@
           large
           class="px-5 text-white"
           color="primary"
-          :disabled="findingPeers"
+          :disabled="findingPeers || findingPeersDisabled"
           @click="findPeers()"
           v-if="chats.length"
         >
@@ -32,7 +32,7 @@
                   large
                   class="px-5 text-white mt-3"
                   color="primary"
-                  :disabled="findingPeers"
+                  :disabled="findingPeers || findingPeersDisabled"
                   @click="findPeers()"
                 >
                   {{ findingPeersBtnText }}
@@ -129,12 +129,14 @@ export default {
   data() {
     return {
       findingPeers: false,
+      findingPeersDisabled: false,
       openSnackBar: false,
-      snackBarMessage: "",
+      snackBarMessage: ""
     };
   },
   computed: {
     findingPeersBtnText() {
+      if (this.findingPeersDisabled) return "matching closed";
       return !this.findingPeers ? "Find Peers" : "Working...";
     },
     isLoadingChats() {
@@ -144,11 +146,11 @@ export default {
       return this.$store.state.chatStore.chats || [];
     }
   },
-  filters:{
-    truncateString(text, desiredLength=80) {
-      let truncated = text.substring(0,desiredLength)
-      if(text.length>=80){
-        truncated+='...';
+  filters: {
+    truncateString(text, desiredLength = 80) {
+      let truncated = text.substring(0, desiredLength);
+      if (text.length >= 80) {
+        truncated += "...";
       }
 
       return truncated;
@@ -162,8 +164,19 @@ export default {
       //    loading state
       this.findingPeers = true;
 
-      PeerService.matchPeers().then(() => {
+      PeerService.matchPeers().then(({ data: response }) => {
         this.findingPeers = false;
+
+        this.snackBarMessage = response.message;
+        this.openSnackBar = true;
+
+        this.findingPeersDisabled = !!response.data.count;
+
+        if (this.findingPeersDisabled) {
+          setTimeout(() => {
+            this.findingPeersDisabled = false;
+          }, 60000);
+        }
       });
     }
   },
