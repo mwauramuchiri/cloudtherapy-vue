@@ -9,7 +9,7 @@ import store from '../../store';
 
 /** Handle any changes to auth state ~ firebase */
 const handleAuthChanged = async user => {
-    store.commit('auth/updateProp', {
+    store.commit('authStore/updateProp', {
         name: 'isLoadingAuth',
         value: true
     });
@@ -22,7 +22,7 @@ const handleAuthChanged = async user => {
         if (!authDataFromApi) return;
 
 
-        store.commit('auth/updateProp', {
+        store.commit('authStore/updateProp', {
             name: 'isLoggedIn',
             value: true
         });
@@ -30,7 +30,7 @@ const handleAuthChanged = async user => {
         // Update user details
         let userFromApi = authDataFromApi.data.data;
 
-        store.commit('user/updateProp', {
+        store.commit('userStore/updateProp', {
             name: 'user',
             value: userFromApi
         });
@@ -39,7 +39,7 @@ const handleAuthChanged = async user => {
         // Not logged in
     }
 
-    store.commit('auth/updateProp', {
+    store.commit('authStore/updateProp', {
         name: 'isLoadingAuth',
         value: false
     });

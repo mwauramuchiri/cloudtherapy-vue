@@ -31,7 +31,7 @@ body {
   padding-bottom: 86px !important;
 }
 
-.ct-app-bar > * {
+.ct-app-bar   > * {
   max-width: 700px !important;
   margin-left: auto !important;
   margin-right: auto !important;
@@ -68,7 +68,7 @@ body {
 }
 
 button, a {
-  @extend .ct-border-radius;
+  @extend .ct-border-radius;  
 }
 
 .ct-border-radius {

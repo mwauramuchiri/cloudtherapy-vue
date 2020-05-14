@@ -34,6 +34,7 @@
       @click="sendText()"
       :color="inputIsEmpty ? 'grey' : 'blue'"
       class="flex-grow-0"
+      :disabled="textIsEmpty"
     >
       <v-icon>mdi-send</v-icon>
     </v-btn>
@@ -43,6 +44,12 @@
 <script>
 import EmojiBar from "@/components/EmojiBar";
 import _debounce from "lodash/debounce";
+
+// Services
+import ChatService from "@/services/ChatService";
+
+// Utils
+import { getCurrentUser, getOtherUser } from "@/utils/chat";
 
 export default {
   name: "ChatInput",
@@ -64,7 +71,10 @@ export default {
     }, 150)
   },
   computed: {
-    inputIsEmpty() {
+    currentChat() {
+      return this.$store.state.chatStore.currentChat;
+    },
+    textIsEmpty() {
       return /\w/g.test(this.text) ? false : true;
     }
   },
@@ -99,14 +109,25 @@ export default {
       this.$nextTick(this.$refs["chat-input"].focus());
     },
     sendText() {
-      if (this.inputIsEmpty) {
-        return;
-      }
+      if (this.textIsEmpty || !Object.values(this.currentChat).length) return;
 
-      this.$emit("send-text", this.text);
-      this.$nextTick(() => {
-        this.text = "";
-      });
+      const { id: fromUserId } = getCurrentUser(this.currentChat);
+      const { id: toUserId } = getOtherUser(this.currentChat);
+
+      const messageData = {
+        from: fromUserId,
+        to: toUserId,
+        text: this.text
+      };
+
+      return ChatService.sendMessage(this.chatId, messageData).then(
+        response => {
+          // Empty the text
+          this.text = "";
+          console.log("Send message respone: ", response);
+          //TODO: Toast success or failure
+        }
+      );
     }
   }
 };

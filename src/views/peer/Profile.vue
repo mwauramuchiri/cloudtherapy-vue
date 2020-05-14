@@ -169,7 +169,7 @@ export default {
   },
   computed: {
     // eslint-disable-next-line prettier/prettier
-    ...mapGetters("user", [
+    ...mapGetters("userStore", [
       'userName'
     ]),
     btnText() {
@@ -225,7 +225,7 @@ export default {
 
       (async function generate() {
         const name = _chance.name({ gender: $this.userGender });
-        $this.$store.commit("user/newUserName", name);
+        $this.$store.commit("userStore/newUserName", name);
 
         await $this.$nextTick();
 

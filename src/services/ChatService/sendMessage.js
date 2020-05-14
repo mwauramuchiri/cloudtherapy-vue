@@ -2,6 +2,9 @@ import axios from "axios";
 
 import { CHAT_API_URL } from "../../constants";
 
+// Store
+import store from "../../store";
+
 /** Send a message to the `chat` of `chatId` as the currently logged in user
  * @param {String} chatId The id of the chat thread to send a message to
  */
@@ -14,6 +17,14 @@ const sendMessage = async (chatId, messageData) => {
   const requestData = {
     data: messageData
   };
+
+  const existingChats = store.state.chatStore.chats;
+
+  // Update chats in chat store ~ this will be overriden with newer values once the message gets to the server
+  store.commit("chatStore/updateProp", {
+    name: "chats",
+    value: [...existingChats, messageData]
+  });
 
   const apiResponse = axios.post(_requestUrl, requestData);
   return apiResponse;

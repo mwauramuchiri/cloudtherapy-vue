@@ -20,7 +20,7 @@ const getChatById = chatId => {
       currentChat.otherUser = getOtherUser(chatFound);
 
       // Update store value of chat found
-      store.commit("chat/updateProp", {
+      store.commit("chatStore/updateProp", {
         name: "currentChat",
         value: currentChat
       });

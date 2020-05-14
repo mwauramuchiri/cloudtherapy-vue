@@ -20,7 +20,7 @@ const getChatMessages = async chatId => {
       });
 
       // Update the store
-      store.commit("chat/updateProp", {
+      store.commit("chatStore/updateProp", {
         name: "messages",
         value: chatMessages
       });

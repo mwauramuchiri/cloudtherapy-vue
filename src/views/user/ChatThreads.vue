@@ -138,10 +138,10 @@ export default {
       return !this.findingPeers ? "Find Peers" : "Working...";
     },
     isLoadingChats() {
-      return this.$store.state.chat.isLoadingChat;
+      return this.$store.state.chatStore.isLoadingChat;
     },
     chats() {
-      return this.$store.state.chat.chats || [];
+      return this.$store.state.chatStore.chats || [];
     }
   },
   methods: {

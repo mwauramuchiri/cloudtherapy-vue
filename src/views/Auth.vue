@@ -75,7 +75,7 @@ export default {
   },
   computed: {
     isLoggedIn() {
-      return this.$store.state.auth.isLoggedIn;
+      return this.$store.state.authStore.isLoggedIn;
     }
   },
   methods: {

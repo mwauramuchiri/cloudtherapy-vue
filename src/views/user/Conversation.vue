@@ -37,8 +37,8 @@
           <v-avatar class="ml-5" size="36">
             <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
           </v-avatar>
-          <!-- {{ }} -->
-          <h5 class="ml-3">Random User</h5>
+
+          <h5 class="ml-3">{{ currentChat.otherUser.name }}</h5>
           <v-spacer />
           <div class="mr-xs-2 mr-sm-and-up-5">
             <v-menu bottom left>
@@ -69,12 +69,17 @@
           </v-banner>
 
           <!-- LOADING CHATS -->
-          <v-container class="fill-height" v-if="loadingChats">
+          <v-container class="fill-height" v-if="!loadingChats">
             <Loading />
           </v-container>
 
           <template v-else class="--container ct-h-100">
-            <!-- MESSAGES -->
+            <ChatBubble
+              v-for="(chatMessage,i) in chatMessages"
+              :key="i"
+              :message="chatMessage"
+              :isSelf="true" //TODO: Get this from the message data
+            />
           </template>
         </v-content>
 
@@ -88,7 +93,7 @@
         >
           <!-- CHAT TEXTAREA -->
           <!-- CHAT SEND BTN -->
-          <ChatInput @send-text="sendText" />
+          <ChatInput />
         </v-footer>
       </template>
     </transition-group>
@@ -96,32 +101,59 @@
 </template>
 
 <script>
+// Components
 import ChatInput from "@/components/ChatInput.vue";
+import ChatBubble from "@/components/ChatBubble.vue";
+
+// Mixins
+import UserMixin from "@/mixins/UserMixin";
+
+// Services
+import ChatService from "@/services/ChatService";
 
 export default {
   name: "Conversation",
   components: {
-    ChatInput
+    ChatInput,
+    ChatBubble
   },
   props: ["therapist", "therapistId"],
+  mixins: [UserMixin],
   data() {
     return {
-      loadingChats: true
+      loadingChats: true,
+      messages: []
     };
   },
+  chatMessages(){ //! Not tested
+    return this.$store.chatStore.messages;
+  },
+  currentChat() {
+    return this.$store.state.chatStore.currentChat;
+  },
   methods: {
-    sendText(text) {
-      console.log("Sending...", text);
+    loadCurrentConversation() {
+      const currentChatThreadId = this.$route.params.chatThreadId;
+
+      // Set active chat
+      ChatService.getChatById(currentChatThreadId);
+
+      // Get the chat messages for this chat
+      ChatService.getChatMessages(currentChatThreadId);
     },
     unmatch() {
-      //
+      // TODO: Add functionality ~ Service function missing
+    }
+  },
+  watch: {
+    $route() {
+      this.loadCurrentConverstion();
     }
   },
   async created() {
-    // load other user
-    // load chat
-    await Promise;
-    this.loadingPage = false;
+    this.waitForUser().then(() => {
+      this.loadingPage = false;
+    });
   }
 };
 </script>
@@ -129,7 +161,7 @@ export default {
 <style lang="scss">
 @media screen and (min-width: $lg-width) {
   .v-content {
-    // [FooteHight]px + [ExtraPadding]px
+    // [FooterHeight]px + [ExtraPadding]px
     padding-bottom: 140px !important;
   }
 }

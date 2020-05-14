@@ -10,8 +10,8 @@ const _chatsRef = db.collection("chats");
  * Currently logged in user is retrieved from Auth store
  */
 const getChats = async () => {
-  const userId = store.state.user.user.uid;
-  store.commit("chat/updateProp", {
+  const userId = store.state.userStore.user.uid;
+  store.commit("chatStore/updateProp", {
     name: "isLoadingChat",
     value: true
   });
@@ -37,12 +37,12 @@ const getChats = async () => {
       });
 
       // Update the chat store
-      store.commit("chat/updateProp", {
+      store.commit("chatStore/updateProp", {
         name: "chats",
         value: chats
       });
 
-      store.commit("chat/updateProp", {
+      store.commit("chatStore/updateProp", {
         name: "isLoadingChat",
         value: false
       });

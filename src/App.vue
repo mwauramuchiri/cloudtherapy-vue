@@ -38,10 +38,10 @@ export default {
   },
   computed: {
     isLoadingAuth() {
-      return this.$store.state.auth.isLoadingAuth;
+      return this.$store.state.authStore.isLoadingAuth;
     },
     isLoggedIn() {
-      return this.$store.state.auth.isLoggedIn;
+      return this.$store.state.authStore.isLoggedIn;
     }
   },
   created() {
