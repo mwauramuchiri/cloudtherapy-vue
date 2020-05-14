@@ -1,136 +1,116 @@
 <template>
   <v-app>
-    <transition-group
-      class="ct-h-100"
-      tag="div"
-      name="fade-delay"
-      mode="out-in"
-      appear
+    <v-app-bar
+      class="ct-shadow ct-app-bar"
+      key="ct-chat-top-bar"
+      app
+      fixed
+      color="white"
+      height="56px"
     >
-      <!-- LOADING PAGE -->
-      <v-container
-        key="ct-chat-loading-state"
-        class="fill-height"
-        v-show="loadingPage"
+      <v-btn
+        icon
+        title="back to chats"
+        class="ml-xs-2 ml-sm-and-up-5"
+        @click="goTo({ name: 'ChatThreads' })"
       >
-        <Loading />
+        <v-icon>mdi-arrow-left</v-icon>
+      </v-btn>
+      <!-- <v-spacer /> -->
+      <v-avatar
+        class="ml-5"
+        size="36"
+        :color="
+          `${currentChatIsLoaded ? 'primary lighten-3' : 'grey lighten-2'}`
+        "
+      >
+        <h5
+          class="black--text headline m-0 font-weight-bold"
+          style="font-size: 0.875rem !important; opacity: 0.54;"
+          v-if="currentChatIsLoaded"
+        >
+          {{ currentChat.otherUser.name | initials }}
+        </h5>
+      </v-avatar>
+
+      <h5 class="ml-3" v-if="currentChatIsLoaded">
+        {{ currentChat.otherUser.name }}
+      </h5>
+      <v-spacer />
+      <div class="mr-xs-2 mr-sm-and-up-5">
+        <v-menu bottom left>
+          <template v-slot:activator="{ on }">
+            <v-btn icon v-on="on">
+              <v-icon>mdi-dots-vertical</v-icon>
+            </v-btn>
+          </template>
+
+          <v-list dense>
+            <v-list-item @click="unmatch">
+              <v-list-item-title>Unmatch</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
+    </v-app-bar>
+
+    <v-content
+      class="ct-h-100 grey lighten-5"
+      key="ct-chat-content"
+      id="chat-thread-container"
+    >
+      <!-- ANY CHAT RELATED MESSAGES -->
+      <v-banner single-line sticky v-if="false" color="green lighten-5">
+        <h4 class="grey--text text--darken-4 font-weight-regular">
+          I am here to help. Feel free to call me anytime
+        </h4>
+
+        <template v-slot:actions>
+          <v-btn text color="yellow accent-4">Call Anne</v-btn>
+        </template>
+      </v-banner>
+
+      <!-- CHATS EMPTY -->
+      <v-container class="fill-height" v-else-if="!chatMessages.length">
+        <v-alert
+        class="d-flex justify-center grow mx-auto"
+          dense
+          color="primary"
+          icon="mdi-information-outline"
+          text
+          outlined
+        >
+          {{ startTip }}
+        </v-alert>
       </v-container>
 
-      <template v-show="!loadingPage">
-        <v-app-bar
-          class="ct-shadow ct-app-bar"
-          key="ct-chat-top-bar"
-          app
-          fixed
-          color="white"
-          height="56px"
-        >
-          <v-btn
-            icon
-            title="back to chats"
-            class="ml-xs-2 ml-sm-and-up-5"
-            @click="goTo({ name: 'ChatThreads' })"
-          >
-            <v-icon>mdi-arrow-left</v-icon>
-          </v-btn>
-          <!-- <v-spacer /> -->
-          <v-avatar
-            class="ml-5"
-            size="36"
-            :color="
-              `${currentChatIsLoaded ? 'primary lighten-3' : 'grey lighten-2'}`
-            "
-          >
-            <h5
-              class="black--text headline m-0 font-weight-bold"
-              style="font-size: 0.875rem !important; opacity: 0.54;"
-              v-if="currentChatIsLoaded"
-            >
-              {{ currentChat.otherUser.name | initials }}
-            </h5>
-          </v-avatar>
-
-          <h5 class="ml-3" v-if="currentChatIsLoaded">
-            {{ currentChat.otherUser.name }}
-          </h5>
-          <v-spacer />
-          <div class="mr-xs-2 mr-sm-and-up-5">
-            <v-menu bottom left>
-              <template v-slot:activator="{ on }">
-                <v-btn icon v-on="on">
-                  <v-icon>mdi-dots-vertical</v-icon>
-                </v-btn>
-              </template>
-
-              <v-list dense>
-                <v-list-item @click="unmatch">
-                  <v-list-item-title>Unmatch</v-list-item-title>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </div>
-        </v-app-bar>
-
-        <v-content
-          class="ct-h-100 grey lighten-5"
-          key="ct-chat-content"
-          id="chat-thread-container"
-        >
-          <!-- ANY CHAT RELATED MESSAGES -->
-          <v-banner single-line sticky v-if="false" color="green lighten-5">
-            <h4 class="grey--text text--darken-4 font-weight-regular">
-              I am here to help. Feel free to call me anytime
-            </h4>
-
-            <template v-slot:actions>
-              <v-btn text color="yellow accent-4">Call Anne</v-btn>
-            </template>
-          </v-banner>
-
-          <!-- LOADING CHATS -->
-          <v-container class="fill-height" v-if="!currentChatIsLoaded">
-            <Loading />
-          </v-container>
-
-          <!-- CHATS EMPTY -->
-          <v-container class="fill-height" v-else-if="!chatMessages.length">
-            <v-alert
-            class="d-flex justify-center grow mx-auto"
-              dense
-              color="primary"
-              icon="mdi-information-outline"
-              text
-              outlined
-            >
-              {{ startTip }}
-            </v-alert>
-          </v-container>
-
-          <template v-else class=" ct-h-100">
-            <!--  // TODO: Get this from the message data -->
-            <ChatBubble
-              v-for="(chatMessage, i) in chatMessages"
-              :key="i"
-              :message="chatMessage"
-              :isSelf="isSelf(chatMessage)"
-            />
-          </template>
-        </v-content>
-
-        <!-- BOTTOM BAR -->
-        <v-footer
-          key="ct-chat-bottom-bar"
-          app
-          fixed
-          class="elevation-0 justify-center py-5"
-          color="grey lighten-3"
-        >
-          <!-- CHAT TEXTAREA -->
-          <!-- CHAT SEND BTN -->
-          <ChatInput />
-        </v-footer>
+      <template v-else class=" ct-h-100">
+        <!--  // TODO: Get this from the message data -->
+        <ChatBubble
+          v-for="(chatMessage, i) in chatMessages"
+          :key="i"
+          :message="chatMessage"
+          :isSelf="isSelf(chatMessage)"
+        />
       </template>
-    </transition-group>
+    </v-content>
+
+    <!-- BOTTOM BAR -->
+    <v-footer
+      key="ct-chat-bottom-bar"
+      app
+      fixed
+      class="elevation-0 justify-center py-5"
+      color="grey lighten-3"
+    >
+      <!-- CHAT TEXTAREA -->
+      <!-- CHAT SEND BTN -->
+      <ChatInput />
+    </v-footer>
+  
+    <v-snackbar v-model="openSnackBar" top>
+      {{ snackBarMessage }}
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -159,6 +139,12 @@ export default {
     ChatInput,
     ChatBubble
   },
+  data() {
+    return {
+      openSnackBar: false,
+      snackBarMessage: ""
+    };
+  },
   props: ["therapist", "therapistId"],
   mixins: [UserMixin, ChatMixin],
   computed: {
@@ -182,7 +168,16 @@ export default {
       ChatService.getChatMessages(this.currentChatThreadId);
     },
     unmatch() {
-      // TODO: Add functionality ~ Service function missing
+      this.snackBarMessage = "Unmatching...";
+      this.openSnackBar = true;
+
+      ChatService.unmatch(this.currentChatThreadId)
+      .then(() => {
+        this.openSnackBar = false;
+        this.goTo({
+          name: "ChatThreads"
+        });
+      });
     }
   },
   async created() {

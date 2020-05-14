@@ -7,11 +7,13 @@ import getChatById from "./getChatById";
 import getChats from "./getChats";
 import getChatMessages from "./getChatMessages";
 import sendMessage from "./sendMessage";
+import unmatch from "./unmatch";
 
 //* EXPORTS
 export default {
   getChatById,
   getChats,
   getChatMessages,
-  sendMessage
+  sendMessage,
+  unmatch
 };
