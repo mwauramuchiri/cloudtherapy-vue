@@ -11,10 +11,10 @@ const handleAuthSuccess = (user) => {
 
     AuthService.authUser(user.uid, userData)
         .then(() => {
-            console.log("Successfully logged in user");
+            // console.log("Successfully logged in user");
         })
-        .catch((err) => {
-            console.error("Failed to login", err);
+        .catch((/* err */) => {
+            // console.error("Failed to login", err);
         });
 
     return true;

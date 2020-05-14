@@ -35,7 +35,7 @@ const handleAuthChanged = async user => {
             value: userFromApi
         });
     } else {
-        console.log('user logged out')
+        // console.log('user logged out')
         // Not logged in
     }
 
