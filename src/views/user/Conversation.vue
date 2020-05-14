@@ -34,10 +34,16 @@
             <v-icon>mdi-arrow-left</v-icon>
           </v-btn>
           <!-- <v-spacer /> -->
-          <v-avatar class="ml-5" size="36" color="grey lighten-2">
+          <v-avatar
+            class="ml-5"
+            size="36"
+            :color="
+              `${currentChatIsLoaded ? 'primary lighten-3' : 'grey lighten-2'}`
+            "
+          >
             <h5
               class="black--text headline m-0 font-weight-bold"
-              style="font-size: 0.875rem !important; opacity: 0.32;"
+              style="font-size: 0.875rem !important; opacity: 0.54;"
               v-if="currentChatIsLoaded"
             >
               {{ currentChat.otherUser.name | initials }}
@@ -117,6 +123,7 @@ import ChatBubble from "@/components/ChatBubble.vue";
 
 // Mixins
 import UserMixin from "@/mixins/UserMixin";
+import ChatMixin from "@/mixins/ChatMixin";
 
 // Services
 import ChatService from "@/services/ChatService";
@@ -128,38 +135,20 @@ export default {
     ChatBubble
   },
   props: ["therapist", "therapistId"],
-  mixins: [UserMixin],
-  data() {
-    return {
-      messages: []
-    };
-  },
-  watch: {
-    $route() {
-      this.loadCurrentConverstion();
-    }
-  },
+  mixins: [UserMixin, ChatMixin],
   computed: {
     //! Not tested
     chatMessages() {
       return this.$store.state.chatStore.messages;
-    },
-    currentChat() {
-      return this.$store.state.chatStore.currentChat;
-    },
-    currentChatIsLoaded() {
-      return Object.keys(this.currentChat).length > 0;
     }
   },
   methods: {
     loadCurrentConversation() {
-      const currentChatThreadId = this.$route.params.chatThreadId;
-
       // Set active chat
-      ChatService.getChatById(currentChatThreadId);
+      ChatService.getChatById(this.currentChatThreadId);
 
       // Get the chat messages for this chat
-      ChatService.getChatMessages(currentChatThreadId);
+      ChatService.getChatMessages(this.currentChatThreadId);
     },
     unmatch() {
       // TODO: Add functionality ~ Service function missing

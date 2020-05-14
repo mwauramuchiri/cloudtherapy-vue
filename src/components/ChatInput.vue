@@ -42,8 +42,12 @@
 </template>
 
 <script>
+// Components
 import EmojiBar from "@/components/EmojiBar";
 import _debounce from "lodash/debounce";
+
+// Mixins
+import ChatMixin from "@/mixins/ChatMixin";
 
 // Services
 import ChatService from "@/services/ChatService";
@@ -56,6 +60,7 @@ export default {
   components: {
     EmojiBar
   },
+  mixins: [ChatMixin],
   data() {
     return {
       inputCursorPos: [0, 0],
@@ -71,9 +76,6 @@ export default {
     }, 150)
   },
   computed: {
-    currentChat() {
-      return this.$store.state.chatStore.currentChat;
-    },
     textIsEmpty() {
       return /\w/g.test(this.text) ? false : true;
     }
@@ -109,10 +111,10 @@ export default {
       this.$nextTick(this.$refs["chat-input"].focus());
     },
     sendText() {
-      if (this.textIsEmpty || !Object.values(this.currentChat).length) return;
+      if (this.textIsEmpty || !this.currentChatIsLoaded) return;
 
-      const { id: fromUserId } = getCurrentUser(this.currentChat);
-      const { id: toUserId } = getOtherUser(this.currentChat);
+      const { uid: fromUserId } = getCurrentUser(this.currentChat);
+      const { uid: toUserId } = getOtherUser(this.currentChat);
 
       const messageData = {
         from: fromUserId,
@@ -120,14 +122,15 @@ export default {
         text: this.text
       };
 
-      return ChatService.sendMessage(this.chatId, messageData).then(
-        response => {
-          // Empty the text
-          this.text = "";
-          console.log("Send message respone: ", response);
-          //TODO: Toast success or failure
-        }
-      );
+      return ChatService.sendMessage(
+        this.currentChatThreadId,
+        messageData
+      ).then(response => {
+        // Empty the text
+        this.text = "";
+        console.log("Send message respone: ", response);
+        //TODO: Toast success or failure
+      });
     }
   }
 };
