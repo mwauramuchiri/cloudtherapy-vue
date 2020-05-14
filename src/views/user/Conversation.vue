@@ -209,6 +209,7 @@ export default {
 }
 
 #chat-thread-container {
+  width: 100%;
   max-width: 720px;
   margin-left: auto;
   margin-right: auto;
