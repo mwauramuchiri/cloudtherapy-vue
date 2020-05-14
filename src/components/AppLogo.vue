@@ -1,5 +1,5 @@
 <template>
-  <img :height="56" src="/img/logo.png" alt="Cloud Therapy" />
+  <img :height="height" src="/img/logo.png" alt="Cloud Therapy" />
 </template>
 
 <script>
@@ -8,7 +8,7 @@ export default {
   props: {
     height: {
       type: [String, Number],
-      default: "56px"
+      default: "40px"
     }
   }
 };

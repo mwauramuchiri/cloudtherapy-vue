@@ -4,7 +4,7 @@
       <v-row class="text-center mt-8">
         <v-col cols="12">
           <!-- LOGO -->
-          <AppLogo />
+          <AppLogo height="86px" />
           <h4>CLOUD THERAPY</h4>
         </v-col>
 
