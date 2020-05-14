@@ -129,7 +129,7 @@ export default {
       userCounty: "Nairobi",
       userSubCounty: undefined,
       openSnackBar: false,
-      snackBarMessage: "Success!",
+      snackBarMessage: "Successfully updated profile",
       form: {
         genders: [
           {
