@@ -1,5 +1,5 @@
 <template>
-  <img :height="height" src="/img/logo.png" alt="Cloud Therapy" />
+  <img :height="height" src="/img/logo.svg" alt="Cloud Therapy" />
 </template>
 
 <script>
