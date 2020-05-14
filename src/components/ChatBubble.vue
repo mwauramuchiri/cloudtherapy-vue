@@ -84,6 +84,7 @@ $black: #1a1a1a;
   padding: 8px 11px;
   margin: 8px 20px;
   position: relative;
+  max-width: 32rem;
 
   &:not(.text-bubble__self) {
     border-top-left-radius: 0px;
