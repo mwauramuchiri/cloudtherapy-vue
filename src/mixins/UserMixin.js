@@ -9,11 +9,6 @@ export default {
         .toUpperCase();
     }
   },
-  watch: {
-    currentChat(newVal, oldVal) {
-      console.log("New val: %o \nOld val : %o", newVal, oldVal);
-    }
-  },
   computed: {
     isNewUser() {
       return this.$store.state.userStore.user.isNew;

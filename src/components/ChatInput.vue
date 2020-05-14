@@ -32,7 +32,7 @@
     <v-btn
       icon
       @click="sendText()"
-      :color="inputIsEmpty ? 'grey' : 'blue'"
+      :color="textIsEmpty ? 'grey' : 'blue'"
       class="flex-grow-0"
       :disabled="textIsEmpty"
     >

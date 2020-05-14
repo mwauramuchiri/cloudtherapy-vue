@@ -40,7 +40,7 @@
               style="font-size: 0.875rem !important; opacity: 0.32;"
               v-if="currentChatIsLoaded"
             >
-              {{ chat.otherUser.name | initials }}
+              {{ currentChat.otherUser.name | initials }}
             </h5>
           </v-avatar>
 
@@ -66,7 +66,8 @@
         </v-app-bar>
 
         <v-content class="ct-h-100 grey lighten-5" key="ct-chat-content">
-          <v-banner single-line sticky v-if="therapist" color="green lighten-5">
+          <!-- ANY CHAT RELATED MESSAGES -->
+          <v-banner single-line sticky v-if="false" color="green lighten-5">
             <h4 class="grey--text text--darken-4 font-weight-regular">
               I am here to help. Feel free to call me anytime
             </h4>
@@ -141,7 +142,7 @@ export default {
   computed: {
     //! Not tested
     chatMessages() {
-      return this.$store.chatStore.messages;
+      return this.$store.state.chatStore.messages;
     },
     currentChat() {
       return this.$store.state.chatStore.currentChat;
@@ -166,6 +167,7 @@ export default {
   },
   async created() {
     this.waitForUser().then(() => {
+      this.loadCurrentConversation();
       this.loadingPage = false;
     });
   }
