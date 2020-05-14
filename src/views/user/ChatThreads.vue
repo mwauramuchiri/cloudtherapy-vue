@@ -83,7 +83,7 @@
                             <h5 class="primary--text">New chat</h5>
                           </template>
                           <template v-else>
-                            {{ chat.lastMessage.text }}
+                            {{ chat.lastMessage.text | truncateString }}
                           </template>
                         </v-col>
 
@@ -136,6 +136,11 @@ export default {
     },
     chats() {
       return this.$store.state.chatStore.chats || [];
+    }
+  },
+  filters:{
+    truncateString(text, desiredLength=80) {
+      return text.substring(0,desiredLength)+'...';
     }
   },
   methods: {
