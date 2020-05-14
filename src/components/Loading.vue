@@ -1,6 +1,6 @@
 <template>
   <v-sheet
-    background-color="transparent"
+    color="transparent"
     :class="['loading', { 'loading--size-full': fullScreen }]"
   >
     <v-progress-circular indeterminate :size="64" :width="3" color="primary" />
