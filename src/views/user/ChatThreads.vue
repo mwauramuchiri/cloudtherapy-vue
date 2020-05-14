@@ -83,7 +83,7 @@
                             <h5 class="primary--text">New chat</h5>
                           </template>
                           <template v-else>
-                            {{ chat.message }}
+                            {{ chat.lastMessage.text }}
                           </template>
                         </v-col>
 
