@@ -133,15 +133,6 @@ export default {
       findingPeers: false
     };
   },
-  filters: {
-    initials(name = "") {
-      return name
-        .split(" ")
-        .map(n => n.slice(0, 1))
-        .join("")
-        .toUpperCase();
-    }
-  },
   computed: {
     findingPeersBtnText() {
       return !this.findingPeers ? "Find Peers" : "Working...";

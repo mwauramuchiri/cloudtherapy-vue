@@ -1,5 +1,14 @@
 export default {
   name: "UserMixin",
+  filters: {
+    initials(name = "") {
+      return name
+        .split(" ")
+        .map(n => n.slice(0, 1))
+        .join("")
+        .toUpperCase();
+    }
+  },
   computed: {
     isNewUser() {
       return this.$store.state.user.user.isNew;
