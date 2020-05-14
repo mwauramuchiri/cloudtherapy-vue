@@ -11,12 +11,12 @@
       <v-container
         key="ct-chat-loading-state"
         class="fill-height"
-        v-if="loadingPage"
+        v-show="loadingPage"
       >
         <Loading />
       </v-container>
 
-      <template v-else>
+      <template v-show="!loadingPage">
         <v-app-bar
           class="ct-shadow ct-app-bar"
           key="ct-chat-top-bar"
@@ -71,7 +71,11 @@
           </div>
         </v-app-bar>
 
-        <v-content class="ct-h-100 grey lighten-5" key="ct-chat-content">
+        <v-content
+          class="ct-h-100 grey lighten-5"
+          key="ct-chat-content"
+          id="chat-thread-container"
+        >
           <!-- ANY CHAT RELATED MESSAGES -->
           <v-banner single-line sticky v-if="false" color="green lighten-5">
             <h4 class="grey--text text--darken-4 font-weight-regular">
@@ -139,8 +143,12 @@ export default {
   },
   props: ["therapist", "therapistId"],
   mixins: [UserMixin, ChatMixin],
+  watch: {
+    chatMessages() {
+
+    }
+  },
   computed: {
-    //! Not tested
     chatMessages() {
       return this.$store.state.chatStore.messages;
     }
@@ -148,7 +156,6 @@ export default {
   methods: {
     isSelf,
     loadCurrentConversation() {
-      // Set active chat
       ChatService.getChatById(this.currentChatThreadId);
 
       // Get the chat messages for this chat
@@ -163,6 +170,17 @@ export default {
       this.loadCurrentConversation();
       this.loadingPage = false;
     });
+  },
+  mounted(){
+    const $chatThreadContainer = document.getElementById("chat-thread-container");
+    // Scroll to last message
+    const myObserver = new ResizeObserver(entries => {
+      entries.forEach(entry => {
+        window.scrollTo(0, entry.contentRect.height);
+      });
+    });
+
+    myObserver.observe($chatThreadContainer);   
   }
 };
 </script>
