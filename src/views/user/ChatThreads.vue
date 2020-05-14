@@ -140,7 +140,12 @@ export default {
   },
   filters:{
     truncateString(text, desiredLength=80) {
-      return text.substring(0,desiredLength)+'...';
+      let truncated = text.substring(0,desiredLength)
+      if(text.length>=80){
+        truncated+='...';
+      }
+
+      return truncated;
     }
   },
   methods: {
