@@ -94,7 +94,7 @@
               v-for="(chatMessage, i) in chatMessages"
               :key="i"
               :message="chatMessage"
-              :isSelf="true"
+              :isSelf="isSelf(chatMessage)"
             />
           </template>
         </v-content>
@@ -128,6 +128,9 @@ import ChatMixin from "@/mixins/ChatMixin";
 // Services
 import ChatService from "@/services/ChatService";
 
+// Utils
+import { isSelf } from "@/utils/chat";
+
 export default {
   name: "Conversation",
   components: {
@@ -143,6 +146,7 @@ export default {
     }
   },
   methods: {
+    isSelf,
     loadCurrentConversation() {
       // Set active chat
       ChatService.getChatById(this.currentChatThreadId);
