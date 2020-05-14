@@ -1,7 +1,7 @@
 <template>
   <v-app class="ct-h-100">
     <v-app-bar app fixed light color="white" elevate-on-scroll height="64px">
-      <a class="ml-5">LOGO</a>
+      <a class="ml-5"><AppLogo /></a>
       <v-spacer />
       <div class="mr-5"></div>
     </v-app-bar>
@@ -97,11 +97,13 @@
 
 <script>
 import OnlineNotify from "@/components/OnlineNotify.vue";
+import AppLogo from "@/components/AppLogo.vue";
 
 export default {
   name: "Therapists",
   components: {
-    OnlineNotify
+    OnlineNotify,
+    AppLogo
   },
   data() {
     return {

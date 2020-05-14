@@ -4,7 +4,8 @@
       <v-row class="text-center mt-8">
         <v-col cols="12">
           <!-- LOGO -->
-          CLOUD THERAPY LOGO
+          <AppLogo />
+          <h4>CLOUD THERAPY</h4>
         </v-col>
 
         <v-col cols="12" style="margin-top: 36px;" v-if="!isLoggedIn">
@@ -59,10 +60,15 @@
 </template>
 
 <script>
+import AppLogo from "@/components/AppLogo.vue";
+
 import { signInWithRedirect } from "@/utils/auth";
 
 export default {
   name: "Auth",
+  components: {
+    AppLogo
+  },
   watch: {
     // [Logged in] Auth to chats
     async isLoggedIn(newVal) {
