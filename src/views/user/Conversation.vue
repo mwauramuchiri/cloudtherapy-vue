@@ -92,6 +92,20 @@
             <Loading />
           </v-container>
 
+          <!-- CHATS EMPTY -->
+          <v-container class="fill-height" v-else-if="!chatMessages.length">
+            <v-alert
+            class="d-flex justify-center grow mx-auto"
+              dense
+              color="primary"
+              icon="mdi-information-outline"
+              text
+              outlined
+            >
+              {{ startTip }}
+            </v-alert>
+          </v-container>
+
           <template v-else class=" ct-h-100">
             <!--  // TODO: Get this from the message data -->
             <ChatBubble
@@ -134,6 +148,10 @@ import ChatService from "@/services/ChatService";
 
 // Utils
 import { isSelf } from "@/utils/chat";
+import { getRandomNumInRange } from "@/utils/random";
+
+// Lang
+import { tips } from "@/lang";
 
 export default {
   name: "Conversation",
@@ -146,6 +164,13 @@ export default {
   computed: {
     chatMessages() {
       return this.$store.state.chatStore.messages;
+    },
+    /** Tip for the user when the conversation is new */
+    startTip(){
+      const conversationTips = tips.conversation;
+      const tipIndex = getRandomNumInRange(0,conversationTips.length);
+
+      return conversationTips[tipIndex];
     }
   },
   methods: {
@@ -186,5 +211,11 @@ export default {
     // [FooterHeight]px + [ExtraPadding]px
     padding-bottom: 140px !important;
   }
+}
+
+#chat-thread-container {
+  max-width: 720px;
+  margin-left: auto;
+  margin-right: auto;
 }
 </style>
