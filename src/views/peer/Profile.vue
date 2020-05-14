@@ -1,103 +1,92 @@
 <template>
-  <v-sheet class="ct-h-100">
-    <v-app-bar
-      app
-      fixed
-      light
-      color="transparent"
-      elevation="0"
-      height="86px"
-    />
+  <v-app class="ct-h-100">
+    <v-content>
+      <transition name="fade" mode="out-in" appear>
+        <Loading v-if="loadingPage" />
 
-    <transition name="fade" mode="out-in" appear>
-      <Loading v-if="loadingPage" />
+        <v-container style="max-width: 440px !important;" class="mt-5" v-else>
+          <template v-if="isNewUser">
+            <h3 class="text-center">Welcome Onboard</h3>
+            <h4 class="text-center grey--text text--darken-1 font-weight-light">
+              Please complete your profile to continue
+            </h4>
+          </template>
+          <template v-else>
+            <h3 class="text-center">Welcome Back</h3>
+          </template>
+          <!-- div -->
+          <div class="mt-8 pb-5">
+            <v-row class="align-start">
+              <v-col class="grow-shrink-0">
+                <v-text-field
+                  label="Anonymous name"
+                  outlined
+                  :value="userName"
+                  readonly
+                ></v-text-field>
+              </v-col>
+              <v-col class="shrink" style="padding-top: 18px !important;">
+                <v-btn
+                  :disabled="loadingPage"
+                  @click="generateName()"
+                  :loading="loadingPage || isGeneratingName"
+                  depressed
+                  large
+                  color="blue lighten-4"
+                >
+                  Generate
+                </v-btn>
+              </v-col>
+            </v-row>
+            <v-select
+              :items="form.genders"
+              item-text="name"
+              item-value="value"
+              v-model="userGender"
+              label="Gender"
+              outlined
+            ></v-select>
+            <!-- <DatePicker v-model="userDob" label="Date of Birth" /> -->
+            <v-text-field
+              v-model="userDob"
+              label="DOB"
+              type="date"
+              min="1900-01-01"
+              :max="form.minDob"
+              outlined
+              prepend-inner-icon="mdi-calendar"
+            ></v-text-field>
 
-      <v-container
-        style="max-width: 440px !important;"
-        class="--container"
-        v-else
-      >
-        <template v-if="isNewUser">
-          <h3 class="text-center">Welcome Onboard</h3>
-          <h4 class="text-center grey--text text--darken-1 font-weight-light">
-            Please complete your profile to continue
-          </h4>
-        </template>
-        <template v-else>
-          <h3 class="text-center">Welcome Back</h3>
-        </template>
-        <!-- div -->
-        <div class="mt-8 pb-5">
-          <v-row class="align-start">
-            <v-col class="grow-shrink-0">
-              <v-text-field
-                label="Anonymous name"
-                outlined
-                :value="userName"
-                readonly
-              ></v-text-field>
-            </v-col>
-            <v-col class="shrink" style="padding-top: 18px !important;">
-              <v-btn
-                :disabled="loadingPage"
-                @click="generateName()"
-                :loading="loadingPage || isGeneratingName"
-                depressed
-                large
-                color="blue lighten-4"
-              >
-                Generate
-              </v-btn>
-            </v-col>
-          </v-row>
-          <v-select
-            :items="form.genders"
-            item-text="name"
-            item-value="value"
-            v-model="userGender"
-            label="Gender"
-            outlined
-          ></v-select>
-          <!-- <DatePicker v-model="userDob" label="Date of Birth" /> -->
-          <v-text-field
-            v-model="userDob"
-            label="DOB"
-            type="date"
-            min="1900-01-01"
-            :max="form.minDob"
-            outlined
-            prepend-inner-icon="mdi-calendar"
-          ></v-text-field>
+            <v-select
+              :items="form.counties"
+              v-model="userCounty"
+              :value="userCounty"
+              item-text="name"
+              item-value="value"
+              label="County"
+              outlined
+            ></v-select>
+            <v-select
+              :items="subCounties"
+              v-model="userSubCounty"
+              label="Sub-County"
+              outlined
+            ></v-select>
 
-          <v-select
-            :items="form.counties"
-            v-model="userCounty"
-            :value="userCounty"
-            item-text="name"
-            item-value="value"
-            label="County"
-            outlined
-          ></v-select>
-          <v-select
-            :items="subCounties"
-            v-model="userSubCounty"
-            label="Sub-County"
-            outlined
-          ></v-select>
-
-          <v-btn
-            x-large
-            class="mb-5 mt-5"
-            block
-            color="primary"
-            :disabled="isSavingProfile || !canSaveProfile"
-            @click="saveProfile"
-          >
-            {{ btnText }}
-          </v-btn>
-        </div>
-      </v-container>
-    </transition>
+            <v-btn
+              x-large
+              class="mb-5 mt-5"
+              block
+              color="primary"
+              :disabled="isSavingProfile || !canSaveProfile"
+              @click="saveProfile"
+            >
+              {{ btnText }}
+            </v-btn>
+          </div>
+        </v-container>
+      </transition>
+    </v-content>
 
     <v-snackbar v-model="openSnackBar" top>
       {{ snackBarMessage }}
@@ -105,7 +94,7 @@
         Close
       </v-btn>
     </v-snackbar>
-  </v-sheet>
+  </v-app>
 </template>
 
 <script>

@@ -1,28 +1,27 @@
 <template>
   <v-app>
-    <v-app-bar app height="86px" color="rgba(255, 255, 255, 0)" elevation="0" />
-    <v-content style="padding-top: var(--top-app-bar-height) !important;">
-      <transition :name="transitionName" appear mode="out-in">
-        <router-view />
-      </transition>
-    </v-content>
+    <transition :name="transitionName" appear mode="out-in">
+      <router-view />
+    </transition>
     <!-- BOTTOM NAV -->
-    <v-bottom-navigation fixed color="blue" v-if="!isNewUser">
-      <v-btn :to="{ name: 'ChatThreads' }">
-        <span>Chats</span>
-        <v-icon>mdi-forum-outline</v-icon>
-      </v-btn>
+    <v-app class="ct-disable-height-styles">
+      <v-bottom-navigation fixed color="primary darken-2" v-if="!isNewUser">
+        <v-btn :to="{ name: 'ChatThreads' }">
+          <span>Chats</span>
+          <v-icon>mdi-forum-outline</v-icon>
+        </v-btn>
 
-      <v-btn :to="{ name: 'Therapists' }">
-        <span>Therapists</span>
-        <v-icon>mdi-heart-pulse</v-icon>
-      </v-btn>
+        <v-btn :to="{ name: 'Therapists' }">
+          <span>Therapists</span>
+          <v-icon>mdi-heart-pulse</v-icon>
+        </v-btn>
 
-      <v-btn :to="{ name: 'userProfile' }">
-        <span>Profile</span>
-        <v-icon>mdi-account-outline</v-icon>
-      </v-btn>
-    </v-bottom-navigation>
+        <v-btn :to="{ name: 'userProfile' }">
+          <span>Profile</span>
+          <v-icon>mdi-account-outline</v-icon>
+        </v-btn>
+      </v-bottom-navigation>
+    </v-app>
   </v-app>
 </template>
 
@@ -68,6 +67,15 @@ export default {
 
 <style lang="scss">
 /* >>>>>>> */
+.ct-disable-height-styles {
+  min-height: auto !important;
+  height: auto !important;
+
+  > * {
+    min-height: auto !important;
+    height: auto !important;
+  }
+}
 
 .slide-left-leave-active,
 .slide-left-enter-active,
@@ -78,13 +86,6 @@ export default {
   position: fixed !important;
   width: 100% !important;
   top: 0px !important;
-}
-
-.slide-left-leave-active .--container,
-.slide-left-enter-active .--container,
-.slide-right-leave-active .--container,
-.slide-right-enter-active .--container {
-  margin-top: $ct-app-top-bar-height !important;
 }
 
 /* >>>>>>> */

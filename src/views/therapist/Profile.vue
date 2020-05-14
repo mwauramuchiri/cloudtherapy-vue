@@ -1,11 +1,11 @@
 <template>
   <div class="ct-h-100">
-    <v-app-bar app fixed light color="white" elevate-on-scroll height="86px" />
+    <v-app-bar app fixed light color="white" elevate-on-scroll height="64px" />
 
     <transition name="fade" mode="out-in" appear>
       <Loading v-if="loadingPage" />
 
-      <v-container class="fill-height --container" v-else>
+      <v-container class="fill-height" v-else>
         <!-- div -->
         <div>THERAPIST PROFILE</div>
       </v-container>

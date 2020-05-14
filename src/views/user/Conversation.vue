@@ -34,11 +34,19 @@
             <v-icon>mdi-arrow-left</v-icon>
           </v-btn>
           <!-- <v-spacer /> -->
-          <v-avatar class="ml-5" size="36">
-            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
+          <v-avatar class="ml-5" size="36" color="grey lighten-2">
+            <h5
+              class="black--text headline m-0 font-weight-bold"
+              style="font-size: 0.875rem !important; opacity: 0.32;"
+              v-if="currentChatIsLoaded"
+            >
+              {{ chat.otherUser.name | initials }}
+            </h5>
           </v-avatar>
 
-          <h5 class="ml-3">{{ currentChat.otherUser.name }}</h5>
+          <h5 class="ml-3" v-if="currentChatIsLoaded">
+            {{ currentChat.otherUser.name }}
+          </h5>
           <v-spacer />
           <div class="mr-xs-2 mr-sm-and-up-5">
             <v-menu bottom left>
@@ -69,16 +77,17 @@
           </v-banner>
 
           <!-- LOADING CHATS -->
-          <v-container class="fill-height" v-if="!loadingChats">
+          <v-container class="fill-height" v-if="!currentChatIsLoaded">
             <Loading />
           </v-container>
 
-          <template v-else class="--container ct-h-100">
+          <template v-else class=" ct-h-100">
+            <!--  // TODO: Get this from the message data -->
             <ChatBubble
-              v-for="(chatMessage,i) in chatMessages"
+              v-for="(chatMessage, i) in chatMessages"
               :key="i"
               :message="chatMessage"
-              :isSelf="true" //TODO: Get this from the message data
+              :isSelf="true"
             />
           </template>
         </v-content>
@@ -121,15 +130,25 @@ export default {
   mixins: [UserMixin],
   data() {
     return {
-      loadingChats: true,
       messages: []
     };
   },
-  chatMessages(){ //! Not tested
-    return this.$store.chatStore.messages;
+  watch: {
+    $route() {
+      this.loadCurrentConverstion();
+    }
   },
-  currentChat() {
-    return this.$store.state.chatStore.currentChat;
+  computed: {
+    //! Not tested
+    chatMessages() {
+      return this.$store.chatStore.messages;
+    },
+    currentChat() {
+      return this.$store.state.chatStore.currentChat;
+    },
+    currentChatIsLoaded() {
+      return Object.keys(this.currentChat).length > 0;
+    }
   },
   methods: {
     loadCurrentConversation() {
@@ -145,11 +164,6 @@ export default {
       // TODO: Add functionality ~ Service function missing
     }
   },
-  watch: {
-    $route() {
-      this.loadCurrentConverstion();
-    }
-  },
   async created() {
     this.waitForUser().then(() => {
       this.loadingPage = false;
@@ -158,7 +172,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @media screen and (min-width: $lg-width) {
   .v-content {
     // [FooterHeight]px + [ExtraPadding]px

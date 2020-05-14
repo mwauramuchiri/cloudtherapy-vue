@@ -5,7 +5,7 @@
 #app {
   font-family: 'Muli', Roboto, Arial;
   --loaderColor: #fff;
-  --top-app-bar-height: 86px;
+  --top-app-bar-height: 64px;
 }
 
 .ct-shadow {
@@ -28,7 +28,7 @@ body {
 
 .container {
   max-width: 700px !important;
-  padding-bottom: 86px !important;
+  padding-bottom: $ct-app-top-bar-height !important;
 }
 
 .ct-app-bar   > * {
