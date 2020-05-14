@@ -77,7 +77,8 @@ export default {
   },
   computed: {
     textIsEmpty() {
-      return /\w/g.test(this.text) ? false : true;
+      const textWithoutSpaces = this.text.replace(/\s+/g, '');
+      return textWithoutSpaces.length === 0;
     }
   },
   methods: {
