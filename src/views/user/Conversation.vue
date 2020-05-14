@@ -143,11 +143,6 @@ export default {
   },
   props: ["therapist", "therapistId"],
   mixins: [UserMixin, ChatMixin],
-  watch: {
-    chatMessages() {
-
-    }
-  },
   computed: {
     chatMessages() {
       return this.$store.state.chatStore.messages;
@@ -171,7 +166,7 @@ export default {
       this.loadingPage = false;
     });
   },
-  mounted(){
+  mounted() {
     const $chatThreadContainer = document.getElementById("chat-thread-container");
     // Scroll to last message
     const myObserver = new ResizeObserver(entries => {

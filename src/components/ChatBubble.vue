@@ -105,6 +105,7 @@ $black: #1a1a1a;
   color: $black;
   opacity: 0.85;
   font-family: Arial, Roboto, sans-serif;
+  white-space: pre-wrap;
 }
 
 .time-text {
