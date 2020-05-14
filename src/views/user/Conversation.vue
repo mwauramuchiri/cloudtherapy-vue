@@ -72,6 +72,8 @@
 
       <!-- CHATS EMPTY -->
       <v-container class="fill-height" v-else-if="!chatMessages.length">
+        <img src="/img/illustrations/online_discussion.svg" alt="Cloud therapy home background" id="bgEmptyConversation"/>
+
         <v-alert
         class="d-flex justify-center grow mx-auto"
           dense
@@ -213,5 +215,9 @@ export default {
   max-width: 720px;
   margin-left: auto;
   margin-right: auto;
+}
+
+#bgEmptyConversation{
+  width:100%;
 }
 </style>
