@@ -1,20 +1,22 @@
-import { userStore, chatStore } from "../../stores";
+import store from "../../store";
 
+// Utils
 import { db } from "../../utils/firebase";
+import { getOtherUser } from "../../utils/chat";
 
-let userId = null;
 const _chatsRef = db.collection("chats");
 
 /** Get chat threads belonging to the currently logged in user
  * Currently logged in user is retrieved from Auth store
  */
 const getChats = async () => {
-  if (!userId) return [];
-
-  chatStore.update(storeVal => {
-    storeVal.isLoading = true;
-    return storeVal;
+  const userId = store.state.user.user.uid;
+  store.commit("chat/updateProp", {
+    name: "isLoadingChat",
+    value: true
   });
+
+  if (!userId) return [];
 
   // Sets up realtime listener for chat
   return _chatsRef
@@ -29,21 +31,23 @@ const getChats = async () => {
         chats.push(chatItem);
       });
 
-      // Update the chat store
-      chatStore.update(storeVal => {
-        storeVal.chats = chats;
-        storeVal.isLoading = false;
+      chats = chats.map(chat => {
+        chat.otherUser = getOtherUser(chat);
+        return chat;
+      });
 
-        return storeVal;
+      // Update the chat store
+      store.commit("chat/updateProp", {
+        name: "chats",
+        value: chats
+      });
+
+      store.commit("chat/updateProp", {
+        name: "isLoadingChat",
+        value: false
       });
     });
 };
-
-//
-userStore.subscribe(storeVal => {
-  userId = storeVal.uid;
-  getChats();
-});
 
 //* EXPORTS
 export default getChats;

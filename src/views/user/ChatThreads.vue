@@ -19,7 +19,7 @@
 
     <transition name="fade" mode="out-in" appear>
       <!-- LOADING PAGE -->
-      <Loading v-if="loadingPage">Getting chats </Loading>
+      <Loading v-if="isLoadingChats">Getting chats </Loading>
 
       <v-container
         v-else
@@ -59,20 +59,19 @@
                 "
               >
                 <v-list-item-avatar size="44" color="green lighten-5">
-                  <v-img :src="chat.avatar" v-if="chat.therapist" />
+                  <!-- <v-img :src="chat.avatar" v-if="chat.therapist" /> -->
                   <h5
                     class="black--text headline m-0 font-weight-bold"
                     style="font-size: 0.875rem !important; opacity: 0.32;"
-                    v-else
                   >
-                    {{ chat.name | initials }}
+                    {{ chat.otherUser.name | initials }}
                   </h5>
                 </v-list-item-avatar>
 
-                <v-list-item-content>
-                  <v-list-item-title class="d-flex align-center pb-2">
-                    {{ chat.name }}
-                    <v-chip
+                <v-list-item-content class="align-items-start">
+                  <v-list-item-title class="d-flex align-center">
+                    {{ chat.otherUser.name }}
+                    <!-- <v-chip
                       class="ml-3"
                       v-if="chat.therapist"
                       x-small
@@ -80,14 +79,28 @@
                       color="green white--text lighten-2"
                     >
                       THERAPIST
-                    </v-chip>
+                    </v-chip> -->
                   </v-list-item-title>
 
-                  <v-list-item-subtitle v-html="chat.message" />
-                  <h6
-                    class="grey--text text--darken-1 text-right ma-0"
-                    v-html="chat.time"
-                  ></h6>
+                  <!-- Chat message -->
+                  <v-list-item-subtitle class="pb-0 align-items-start">
+                    <v-row>
+                      <v-col class="pt-0">
+                        <template v-if="chat.isNew">
+                          <h5 class="primary--text">New chat</h5>
+                        </template>
+                        <template v-else>
+                          {{ chat.message }}
+                        </template>
+                      </v-col>
+
+                      <v-col class="shrink pt-0">
+                        <h6 class="grey--text text--darken-1 text-right ma-0">
+                          {{ getTime(chat.dateUpdated.seconds) }}
+                        </h6>
+                      </v-col>
+                    </v-row>
+                  </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
 
@@ -108,17 +121,20 @@ import UserMixin from "@/mixins/UserMixin";
 import PeerService from "@/services/PeerService";
 import ChatService from "@/services/ChatService";
 
+// Utils
+import { getOtherUser } from "@/utils/chat";
+import { getTime } from "@/utils/date";
+
 export default {
   name: "ChatThreads",
   mixins: [UserMixin],
   data() {
     return {
-      findingPeers: false,
-      chats: []
+      findingPeers: false
     };
   },
   filters: {
-    initials(name) {
+    initials(name = "") {
       return name
         .split(" ")
         .map(n => n.slice(0, 1))
@@ -129,9 +145,17 @@ export default {
   computed: {
     findingPeersBtnText() {
       return !this.findingPeers ? "Find Peers" : "Working...";
+    },
+    isLoadingChats() {
+      return this.$store.state.chat.isLoadingChat;
+    },
+    chats() {
+      return this.$store.state.chat.chats || [];
     }
   },
   methods: {
+    getOtherUser,
+    getTime,
     findPeers() {
       // trigger an overlay or something
       //    loading state
@@ -143,12 +167,7 @@ export default {
     }
   },
   created() {
-    this.waitForUser()
-      .then(ChatService.getChats)
-      .then(response => {
-        console.debug("Chats response: ", response);
-        this.loadingPage = false;
-      });
+    this.waitForUser().then(() => ChatService.getChats());
   }
 };
 </script>

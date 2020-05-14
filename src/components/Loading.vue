@@ -1,5 +1,8 @@
 <template>
-  <v-sheet :class="['loading', { 'loading--size-full': fullScreen }]">
+  <v-sheet
+    background-color="transparent"
+    :class="['loading', { 'loading--size-full': fullScreen }]"
+  >
     <v-progress-circular indeterminate :size="64" :width="3" color="primary" />
     <h5 style="margin-top: 12px;"><slot>Just a sec...</slot></h5>
   </v-sheet>

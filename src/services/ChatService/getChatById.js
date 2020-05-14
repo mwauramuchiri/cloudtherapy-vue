@@ -2,10 +2,10 @@
 import { db } from "../../utils/firebase";
 
 // Utils
-import ChatUtils from "../../utils/chat";
+import { getCurrentUser, getOtherUser } from "../../utils/chat";
 
 // Stores
-import { chatStore } from "../../stores";
+import store from "../../store";
 
 const getChatById = chatId => {
   db.collection("chats")
@@ -14,19 +14,15 @@ const getChatById = chatId => {
     .then(chatDoc => {
       const chatFound = chatDoc.data();
 
-      // Update store value of chat found
-      chatStore.update(storeVal => {
-        storeVal.currentChat = chatFound;
-        storeVal.currentChat.chatId = chatId;
-        //? Assumes chat happens between 2 people
-        storeVal.currentChat.currentUser = ChatUtils.getCurrentUser(
-          storeVal.currentChat
-        );
-        storeVal.currentChat.otherUser = ChatUtils.getOtherUser(
-          storeVal.currentChat
-        );
+      let currentChat = chatFound || {};
+      currentChat.chatId = chatId;
+      currentChat.currentUser = getCurrentUser(chatFound);
+      currentChat.otherUser = getOtherUser(chatFound);
 
-        return storeVal;
+      // Update store value of chat found
+      store.commit("chat/updateProp", {
+        name: "currentChat",
+        value: currentChat
       });
     });
 };

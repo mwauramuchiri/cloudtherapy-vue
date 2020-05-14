@@ -5,8 +5,13 @@ import moment from "moment";
  */
 const getTime = secondsInput => {
   let dateObj = new Date(secondsInput * 1000);
-  let hours = dateObj.getUTCHours();
-  let minutes = dateObj.getUTCMinutes();
+
+  const offsetTotalMin = dateObj.getTimezoneOffset();
+  const offsetHours = Math.floor(offsetTotalMin / 60);
+  const offsetMin = offsetTotalMin % 60;
+
+  let hours = dateObj.getUTCHours() - offsetHours;
+  let minutes = dateObj.getUTCMinutes() - offsetMin;
 
   hours = isNaN(hours) ? "--" : hours;
   minutes = isNaN(minutes) ? "--" : minutes;

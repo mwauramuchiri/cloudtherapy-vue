@@ -1,6 +1,6 @@
 import { db } from "../../utils/firebase";
 
-import { chatStore } from "../../stores";
+import store from "../../store";
 
 const _chatMessagesRef = db.collection("messages");
 
@@ -8,11 +8,6 @@ const _chatMessagesRef = db.collection("messages");
  * @param {String} chatId The id of the chat thread to retrieve messages for
  */
 const getChatMessages = async chatId => {
-  chatStore.update(storeVal => {
-    storeVal.isLoading = true;
-    return storeVal;
-  });
-
   return _chatMessagesRef
     .where("chatId", "==", chatId)
     .orderBy("dateSent", "desc")
@@ -25,10 +20,9 @@ const getChatMessages = async chatId => {
       });
 
       // Update the store
-      chatStore.update(storeVal => {
-        storeVal.messages = chatMessages;
-        storeVal.isLoading = false;
-        return storeVal;
+      store.commit("chat/updateProp", {
+        name: "messages",
+        value: chatMessages
       });
     });
 };

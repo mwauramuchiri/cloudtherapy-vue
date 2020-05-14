@@ -1,13 +1,14 @@
+import { updateProp } from "./_helpers";
+
 export default {
   namespaced: true,
   state: {
-    isLoading: true,
+    isLoadingChat: false,
     chats: [],
-    messages: []
+    messages: [],
+    currentChat: {}
   },
   mutations: {
-    updateChatProp(state, [prop, value]) {
-      state[prop] = value;
-    }
+    updateProp
   }
 };
