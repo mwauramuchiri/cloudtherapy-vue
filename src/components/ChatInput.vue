@@ -117,19 +117,19 @@ export default {
       const { uid: toUserId } = getOtherUser(this.currentChat);
 
       const messageData = {
-        from: fromUserId,
-        to: toUserId,
-        text: this.text
+        message: {
+          from: fromUserId,
+          to: toUserId,
+          text: this.text
+        }
       };
 
       return ChatService.sendMessage(
         this.currentChatThreadId,
         messageData
-      ).then(response => {
+      ).then(() => {
         // Empty the text
         this.text = "";
-        console.log("Send message respone: ", response);
-        //TODO: Toast success or failure
       });
     }
   }
