@@ -10,7 +10,7 @@ const _chatMessagesRef = db.collection("messages");
 const getChatMessages = async chatId => {
   return _chatMessagesRef
     .where("chatId", "==", chatId)
-    .orderBy("dateSent", "desc")
+    .orderBy("dateSent", "asc")
     .onSnapshot(async querySnapshot => {
       let chatMessages = [];
       querySnapshot.docs.forEach(doc => {

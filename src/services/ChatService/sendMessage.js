@@ -18,8 +18,6 @@ const sendMessage = async (chatId, messageData) => {
     data: messageData
   };
 
-  console.log(requestData);
-
   const existingChats = store.state.chatStore.chats;
 
   // Update chats in chat store ~ this will be overriden with newer values once the message gets to the server
