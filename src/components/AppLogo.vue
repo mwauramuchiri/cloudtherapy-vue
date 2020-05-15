@@ -1,5 +1,5 @@
 <template>
-  <img :height="height" src="/img/logo.svg" alt="Cloud Therapy" />
+  <a href="/"><img :height="height" src="/img/logo.svg" alt="Cloud Therapy" /></a>
 </template>
 
 <script>
@@ -14,4 +14,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+  a:hover,a:focus{
+    text-decoration: none;
+  }
+</style>
