@@ -1,23 +1,18 @@
 <template>
   <v-app>
     <v-container fluid>
-      <v-row class="text-center mt-8">
+      <v-row class="text-center mt-6">
         <v-col cols="12">
           <!-- LOGO -->
           <AppLogo height="86px" />
           <h4>CLOUD THERAPY</h4>
         </v-col>
 
-        <v-col cols="12" style="margin-top: 36px;" v-if="!isLoggedIn">
+        <v-col cols="12" v-if="!isLoggedIn">
           <v-row vertical align="center" justify="center">
-            <v-col cols="12">
-              <h1 class="font-weight-bold">Hi There</h1>
-              <h3 class="font-weight-light">Let's get started</h3>
-            </v-col>
-
             <transition name="fade" mode="out-in" appear>
               <!-- SOCIAL LOGIN BUTTONS -->
-              <v-col cols="12" class="mt-5" v-if="true">
+              <v-col cols="12" v-if="true">
                 <v-btn
                   :min-width="228"
                   width="300px"
