@@ -185,8 +185,9 @@ export default {
     }
   },
   created() {
+    document.title = "Chats - Cloud Therapy";
     this.waitForUser().then(() => ChatService.getChats());
-  }
+  },
 };
 </script>
 

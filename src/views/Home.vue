@@ -25,7 +25,10 @@
 
 <script>
 export default {
-  name: "Home"
+  name: "Home",
+  created() {
+    document.title = "Cloudtherapy - It's okay not to be okay";
+  }
 };
 </script>
 

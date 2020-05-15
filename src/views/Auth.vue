@@ -82,6 +82,9 @@ export default {
   methods: {
     signInWithRedirect
   },
+  created() {
+    document.title = "Sign in - Cloudtherapy";
+  },
   mounted() {
     //? Consider moving this to Mixin to allow for plugin redirects to other pages if user is logged in
     if (this.isLoggedIn) {

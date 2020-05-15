@@ -169,6 +169,7 @@ export default {
     }
   },
   created() {
+    document.title = "Therapists - Cloudtherapy";
     this.loadingPage = false;
     setTimeout(() => {}, 1000);
   }

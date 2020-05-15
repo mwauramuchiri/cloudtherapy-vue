@@ -185,6 +185,7 @@ export default {
   async created() {
     this.waitForUser().then(() => {
       this.loadCurrentConversation();
+      document.title = `Conversation - Cloud Therapy`;
       this.loadingPage = false;
     });
   },

@@ -6,6 +6,9 @@
 
 <script>
 export default {
-  name: "TherapistDetails"
+  name: "TherapistDetails",
+  created() {
+    document.title = "Therapist details - Cloudtherapy";
+  },
 };
 </script>

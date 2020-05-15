@@ -225,6 +225,7 @@ export default {
     }
   },
   created() {
+    document.title = "Profile - Cloudtherapy";
     this.form.counties = kenyanCounties.map(county => county.name);
 
     this.prepopulateProfile().finally(() => {

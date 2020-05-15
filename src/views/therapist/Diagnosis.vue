@@ -6,6 +6,9 @@
 
 <script>
 export default {
-  name: "Diagnosis"
+  name: "Diagnosis",
+  created() {
+    window.title = "Diagnosis - Cloud Therapy";
+  },
 };
 </script>

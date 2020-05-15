@@ -15,7 +15,10 @@
 
 <script>
 export default {
-  name: "TherapistProfile"
+  name: "TherapistProfile",
+  created() {
+    window.title = "Profile - Cloud Therapy";
+  },
 };
 </script>
 
