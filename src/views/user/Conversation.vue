@@ -149,6 +149,11 @@ export default {
   },
   props: ["therapist", "therapistId"],
   mixins: [UserMixin, ChatMixin],
+  watch: {
+    $route(){
+      this.loadCurrentConversation();
+    }
+  },
   computed: {
     chatMessages() {
       return this.$store.state.chatStore.messages;
@@ -167,7 +172,15 @@ export default {
       ChatService.getChatById(this.currentChatThreadId);
 
       // Get the chat messages for this chat
-      ChatService.getChatMessages(this.currentChatThreadId);
+      ChatService.getChatMessages(this.currentChatThreadId,null,
+        (chatMessages)=>{
+          // Update the store
+          this.$store.commit("chatStore/updateProp", {
+            name: "messages",
+            value: chatMessages
+          });
+        }
+      );
     },
     unmatch() {
       this.snackBarMessage = "Unmatching...";
@@ -194,7 +207,10 @@ export default {
     // Scroll to last message
     const myObserver = new ResizeObserver(entries => {
       entries.forEach(entry => {
-        window.scrollTo(0, entry.contentRect.height);
+        // Only scroll if chat messages were found
+        if(this.chatMessages.length){
+          window.scrollTo(0, entry.contentRect.height);
+        }
       });
     });
 

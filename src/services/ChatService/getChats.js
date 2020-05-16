@@ -1,5 +1,3 @@
-import store from "../../store";
-
 // Utils
 import { db } from "../../utils/firebase";
 import { getOtherUser } from "../../utils/chat";
@@ -9,12 +7,11 @@ const _chatsRef = db.collection("chats");
 /** Get chat threads belonging to the currently logged in user
  * Currently logged in user is retrieved from Auth store
  */
-const getChats = async () => {
-  const userId = store.state.userStore.user.uid;
-  store.commit("chatStore/updateProp", {
-    name: "isLoadingChat",
-    value: true
-  });
+const getChats = async (userId,beforeFn=()=>{},afterFn=()=>{}) => {
+  // Only run the before function if it is defined
+  if(beforeFn){
+    beforeFn();
+  }
 
   if (!userId) return [];
 
@@ -37,16 +34,7 @@ const getChats = async () => {
         return chat;
       });
 
-      // Update the chat store
-      store.commit("chatStore/updateProp", {
-        name: "chats",
-        value: chats
-      });
-
-      store.commit("chatStore/updateProp", {
-        name: "isLoadingChat",
-        value: false
-      });
+      afterFn(chats);
     });
 };
 

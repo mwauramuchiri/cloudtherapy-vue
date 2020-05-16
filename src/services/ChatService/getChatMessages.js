@@ -1,13 +1,15 @@
 import { db } from "../../utils/firebase";
 
-import store from "../../store";
-
 const _chatMessagesRef = db.collection("messages");
 
 /** Get chat messages belonging to a single chat (chat thread)
  * @param {String} chatId The id of the chat thread to retrieve messages for
+ * @param {Function} beforeFn Callback invoked before check for messages happens
+ * @param {Function} afterFn Callback invoked when check for messages happens
  */
-const getChatMessages = async chatId => {
+const getChatMessages = async (chatId,beforeFn=()=>{},afterFn=()=>{},) => {
+  beforeFn();
+
   return _chatMessagesRef
     .where("chatId", "==", chatId)
     .orderBy("dateSent", "asc")
@@ -19,11 +21,7 @@ const getChatMessages = async chatId => {
         chatMessages.push(_chatMessage);
       });
 
-      // Update the store
-      store.commit("chatStore/updateProp", {
-        name: "messages",
-        value: chatMessages
-      });
+      afterFn(chatMessages);
     });
 };
 
