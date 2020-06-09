@@ -7,7 +7,11 @@ const _chatMessagesRef = db.collection("messages");
  * @param {Function} beforeFn Callback invoked before check for messages happens
  * @param {Function} afterFn Callback invoked when check for messages happens
  */
-const getChatMessages = async (chatId,beforeFn=()=>{},afterFn=()=>{},) => {
+const getChatMessages = async (
+  chatId,
+  beforeFn = () => {},
+  afterFn = () => {}
+) => {
   beforeFn();
 
   return _chatMessagesRef
