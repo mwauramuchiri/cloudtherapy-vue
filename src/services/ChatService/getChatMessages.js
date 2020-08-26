@@ -12,14 +12,17 @@ const getChatMessages = async (
   beforeFn = () => {},
   afterFn = () => {}
 ) => {
-  beforeFn();
+  // Only run the before function if it is defined
+  if (beforeFn) {
+    beforeFn();
+  }
 
   return _chatMessagesRef
     .where("chatId", "==", chatId)
     .orderBy("dateSent", "asc")
-    .onSnapshot(async querySnapshot => {
+    .onSnapshot(async (querySnapshot) => {
       let chatMessages = [];
-      querySnapshot.docs.forEach(doc => {
+      querySnapshot.docs.forEach((doc) => {
         let _chatMessage = doc.data();
         _chatMessage.id = doc.id;
         chatMessages.push(_chatMessage);
