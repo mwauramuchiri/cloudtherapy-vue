@@ -24,7 +24,6 @@ const sendMessage = async (chatId, messageData) => {
     value: [...existingMessages, messageData.message],
   });
 
-  console.log("Message data ", messageData);
   const apiResponse = axios.post(_requestUrl, requestData);
 
   return apiResponse;
