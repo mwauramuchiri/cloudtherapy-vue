@@ -11,8 +11,7 @@
           <img src="/img/illustrations/conversation.svg" alt="Cloud therapy home background" id="bgHome"/>
           <h1>It's okay not to be okay</h1>
           <h4>
-            A safe space to share with peers going through the same thing
-            anonymously
+            A safe space to share with peers anonymously
           </h4>
           <v-btn to="/auth" class="ct-shadow mt-5 btn-cta" color="primary" x-large>
             Get Started
