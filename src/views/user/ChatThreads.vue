@@ -21,25 +21,28 @@
         <!-- LOADING PAGE -->
         <Loading v-if="isLoadingChats">Getting chats </Loading>
 
-        <v-container v-else :class="{ 'fill-height': chats.length === 0 }">
+        <v-container v-else class="fill-height">
           <transition name="fade" mode="out-in">
             <!-- IF CHAT EMPTY -->
-            <v-row v-if="chats.length === 0">
-              <v-col cols="10" offset="1" class="text-center">
-                <h2>Find a peer to start a conversation</h2>
+            <v-row v-if="chats.length === 0" class="mx-auto">
+              <v-col cols="12"  class="text-center">
+                 <img src="/img/illustrations/sharing_articles.svg" alt="Find someone to talk to" id="bgChatThreads"/>
+                <h3>Find someone to talk to</h3>
+                <p>CloudTherapy is a safe space for you to anonymously share with your peers</p>
                 <v-btn
-                  large
-                  class="px-5 text-white mt-3"
+                             
+                  class="px-5 text-white mt-3 w-16rem"
                   color="primary"
                   :disabled="findingPeers || findingPeersDisabled"
                   @click="findPeers()"
+                  id="btnFindPeers"
                 >
                   {{ findingPeersBtnText }}
                 </v-btn>
               </v-col>
             </v-row>
 
-            <v-list three-line v-else>
+            <v-list id="chatThreadList" three-line v-else>
               <template v-for="(chat, index) in chats">
                 <v-list-item
                   :key="index"
@@ -141,7 +144,7 @@ export default {
   computed: {
     findingPeersBtnText() {
       if (this.findingPeersDisabled) return "matching closed";
-      return !this.findingPeers ? "Find Peers" : "Working...";
+      return !this.findingPeers ? "Start a conversation" : "Finding peers...";
     },
     isLoadingChats() {
       return this.$store.state.chatStore.isLoadingChat;
@@ -215,4 +218,27 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+  h3{
+    line-height: 200%;
+  }
+
+  #btnFindPeers{
+    height:3.6rem;
+    min-width:18rem;
+    border-radius: 3rem !important;
+  }
+
+  #bgChatThreads {
+    opacity: 0.8;
+    width: 100%;
+    min-width:18rem;
+    max-width: 45rem;
+    max-height: 50vh;
+  }
+
+  #chatThreadList{
+    width: 100%;
+    height: 100%;
+  }
+</style>
