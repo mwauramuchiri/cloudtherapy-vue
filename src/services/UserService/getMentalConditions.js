@@ -11,16 +11,19 @@ const getMentalConditions = async (beforeFn = () => {}, afterFn = () => {}) => {
   }
 
   // Sets up realtime listener for chat
-  return _mentalConditionsRef.get().then((querySnapshot) => {
-    const mentalConditions = querySnapshot.docs.map((doc) => {
-      return {
-        id: doc.id,
-        ...doc.data(),
-      };
-    });
+  return _mentalConditionsRef
+    .orderBy("name", "asc")
+    .get()
+    .then((querySnapshot) => {
+      const mentalConditions = querySnapshot.docs.map((doc) => {
+        return {
+          id: doc.id,
+          ...doc.data(),
+        };
+      });
 
-    afterFn(mentalConditions);
-  });
+      afterFn(mentalConditions);
+    });
 };
 
 //* EXPORTS

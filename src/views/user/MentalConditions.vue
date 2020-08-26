@@ -1,0 +1,100 @@
+<template>
+  <div class="fill-height">
+    <Loading v-if="isLoading" />
+
+    <v-container v-else>
+      <div v-if="!mentalConditions.length">
+        <p>No topics found :( please check back again later</p>
+      </div>
+
+      <div class="text-center" v-else>
+        <!-- Details dialog -->
+        <v-dialog v-model="detailDialogIsOpen" max-width="290" v-if="selectedMentalCondition">
+          <v-card>
+            <v-card-title>{{selectedMentalCondition.name}}</v-card-title>
+            <v-card-text>{{selectedMentalCondition.description || 'A mental health condition'}}</v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn text @click="detailDialogIsOpen = false">Close</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
+        <h2>Mental health topics</h2>
+        <p class="font-weight-light">Tap on any topic to learn more about it</p>
+        
+        <v-item-group>
+          <v-row >
+            <v-col
+              v-for="(mentalCondition,i) in mentalConditions"
+              :key="i"
+              cols="6"
+              md="4"
+              lg="3"
+            >
+            <v-item v-slot:default="{ active, toggle }" >
+              
+              <v-card
+              :color="active ? 'primary' : ''"
+                class="d-flex align-center text-center"
+                dark
+                height="90"
+                @click="toggle(); setSelectedMentalCondition(mentalCondition); openConditionDetails()"
+              >
+                <v-card-text>{{mentalCondition.name}}</v-card-text>
+              </v-card>
+            </v-item>
+            </v-col>
+          </v-row>
+        </v-item-group>
+      </div>
+    </v-container>
+  </div>
+</template>
+
+<script>
+// Components
+import Loading from "@/components/Loading";
+
+// Services
+import UserService from "@/services/UserService";
+
+  export default {
+    name: 'MentalConditions',
+    components: {
+      Loading
+    },
+    data(){
+      return {
+        mentalConditions: [],
+        isLoading: false,
+        detailDialogIsOpen: false,
+        selectedMentalCondition: null,
+      }
+    },
+    methods: {
+      setLoading(){
+        this.isLoading = true;
+      },
+      removeLoading(){
+        this.isLoading = false;
+      },
+      setSelectedMentalCondition(mentalCondition){
+        this.selectedMentalCondition = mentalCondition;
+      },
+      openConditionDetails(){
+        this.detailDialogIsOpen = true;
+      }
+    },
+    created(){
+      UserService.getMentalConditions(this.setLoading,(mentalConditionsFound)=>{
+        this.mentalConditions = mentalConditionsFound;
+        this.removeLoading();
+      })
+    }
+  }
+</script>
+
+<style lang="scss">
+
+</style>
