@@ -46,6 +46,8 @@ export default {
   .btn-cta{
     width: 100%;
     margin: auto;
-    max-width:32rem;
+    max-width:24rem;
+    height: 3.6rem;
+    border-radius: 3rem !important;
   }
 </style>
