@@ -20,11 +20,18 @@ export default [
         component: ChatThreads
       },
       {
+        path: "patients",
+        name: "Patients",
+        component: import(
+          /* webpackChunkName: "therapist" */
+          "../views/therapist/Patients.vue"
+        )
+      },
+      {
         path: "therapists",
         name: "Therapists",
         component: Therapists
       },
-      // Peer routes
       {
         path: "profile",
         name: "userProfile",
@@ -38,12 +45,14 @@ export default [
     component: UserDetails,
     props: true
   },
+  // * peer chat
   {
     path: "/user/chats/:chatThreadId",
     name: "Conversation",
     component: Conversation,
     props: true
   },
+  // * user to therapist chat
   {
     path: "/user/therapists/:therapistId",
     name: "TherapistConversation",
@@ -54,5 +63,23 @@ export default [
         therapistId: route.params.therapistId
       };
     }
+  },
+  // * therapist to user chat
+  {
+    path: "therapist/patients/:patientId/chat",
+    name: "PatientConversation",
+    component: Conversation,
+    props: true
+  },
+
+  // * therapist diagnosis
+  {
+    path: "therapist/patients/:patientId/diagnosis",
+    name: "PatientDiagnosis",
+    component: import(
+      /* webpackChunkName: "therapist" */
+      "../views/therapist/PatientDiagnosis.vue"
+    ),
+    props: true
   }
 ];

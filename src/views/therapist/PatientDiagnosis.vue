@@ -6,9 +6,9 @@
 
 <script>
 export default {
-  name: "Diagnosis",
+  name: "PatientDiagnosis",
   created() {
     window.title = "Diagnosis - Cloud Therapy";
-  },
+  }
 };
 </script>

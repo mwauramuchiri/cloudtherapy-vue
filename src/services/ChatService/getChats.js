@@ -7,9 +7,9 @@ const _chatsRef = db.collection("chats");
 /** Get chat threads belonging to the currently logged in user
  * Currently logged in user is retrieved from Auth store
  */
-const getChats = async (userId,beforeFn=()=>{},afterFn=()=>{}) => {
+const getChats = async (userId, beforeFn = () => {}, afterFn = () => {}) => {
   // Only run the before function if it is defined
-  if(beforeFn){
+  if (beforeFn) {
     beforeFn();
   }
 
@@ -18,7 +18,7 @@ const getChats = async (userId,beforeFn=()=>{},afterFn=()=>{}) => {
   // Sets up realtime listener for chat
   return _chatsRef
     .where("participantIds", "array-contains", userId)
-    .where("isActive","==",true)
+    .where("isActive", "==", true)
     .orderBy("dateUpdated", "desc")
     .onSnapshot(async querySnapshot => {
       let chats = [];

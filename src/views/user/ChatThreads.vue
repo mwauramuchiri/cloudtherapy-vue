@@ -186,32 +186,32 @@ export default {
   },
   created() {
     document.title = "Chats - Cloud Therapy";
-    this.waitForUser()
-      .then((user) => 
-    
-      ChatService.getChats(user.uid,
-      // Before chat check begins
-      ()=>{
-        this.$store.commit("chatStore/updateProp", {
-          name: "isLoadingChat",
-          value: true
-        });
-      },
-      // Once chats are found
-      (chats)=>{
-        // Update the chat store
-        this.$store.commit("chatStore/updateProp", {
-          name: "chats",
-          value: chats
-        });
+    this.waitForUser().then(user =>
+      ChatService.getChats(
+        user.uid,
+        // Before chat check begins
+        () => {
+          this.$store.commit("chatStore/updateProp", {
+            name: "isLoadingChat",
+            value: true
+          });
+        },
+        // Once chats are found
+        chats => {
+          // Update the chat store
+          this.$store.commit("chatStore/updateProp", {
+            name: "chats",
+            value: chats
+          });
 
-        this.$store.commit("chatStore/updateProp", {
-          name: "isLoadingChat",
-          value: false
-        });
-      })
+          this.$store.commit("chatStore/updateProp", {
+            name: "isLoadingChat",
+            value: false
+          });
+        }
+      )
     );
-  },
+  }
 };
 </script>
 
