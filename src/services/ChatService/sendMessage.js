@@ -1,7 +1,5 @@
 import axios from "axios";
-
 import { CHAT_API_URL } from "../../constants";
-
 // Store
 import store from "../../store";
 
@@ -15,18 +13,20 @@ const sendMessage = async (chatId, messageData) => {
   messageData.chatId = chatId;
 
   const requestData = {
-    data: messageData
+    data: messageData,
   };
 
-  const existingChats = store.state.chatStore.chats;
+  const existingMessages = store.state.chatStore.messages;
 
   // Update chats in chat store ~ this will be overriden with newer values once the message gets to the server
   store.commit("chatStore/updateProp", {
-    name: "chats",
-    value: [...existingChats, messageData]
+    name: "messages",
+    value: [...existingMessages, messageData.message],
   });
 
+  console.log("Message data ", messageData);
   const apiResponse = axios.post(_requestUrl, requestData);
+
   return apiResponse;
 };
 
