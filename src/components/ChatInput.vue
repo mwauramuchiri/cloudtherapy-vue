@@ -128,13 +128,13 @@ export default {
         }
       };
 
+      // Empty the text message before sending it out
+      this.text = "";
+
       return ChatService.sendMessage(
         this.currentChatThreadId,
         messageData
-      ).then(() => {
-        // Empty the text
-        this.text = "";
-      });
+      );
     }
   },
   created(){
