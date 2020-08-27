@@ -11,9 +11,9 @@
           <v-icon>mdi-forum-outline</v-icon>
         </v-btn>
 
-        <v-btn :to="{ name: 'Therapists' }">
-          <span>Therapists</span>
-          <v-icon>mdi-heart-pulse</v-icon>
+        <v-btn :to="{ name: 'MentalConditions' }">
+          <span>Topics</span>
+          <v-icon>mdi-brain</v-icon>
         </v-btn>
 
         <v-btn :to="{ name: 'userProfile' }">
