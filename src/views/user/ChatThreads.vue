@@ -5,13 +5,15 @@
       <v-spacer />
       <div class="mr-5">
         <v-btn
-          class="px-5 text-white"
+          depressed
+          rounded
+          class=" text-white"
           color="primary"
           :disabled="findingPeers || findingPeersDisabled"
           @click="findPeers()"
           v-if="chats.length"
         >
-          {{ findingPeersBtnText }}
+          <v-icon>{{ findingPeersBtnIcon }}</v-icon>
         </v-btn>
       </div>
     </v-app-bar>
@@ -29,8 +31,7 @@
                  <img src="/img/illustrations/sharing_articles.svg" alt="Find someone to talk to" id="bgChatThreads"/>
                 <h3>Find someone to talk to</h3>
                 <p>CloudTherapy is a safe space for you to anonymously share with your peers</p>
-                <v-btn
-                             
+                <v-btn         
                   class="px-5 text-white mt-3 w-16rem"
                   color="primary"
                   :disabled="findingPeers || findingPeersDisabled"
@@ -107,7 +108,7 @@
       </transition>
     </v-content>
 
-    <v-snackbar v-model="openSnackBar" top>
+    <v-snackbar v-model="openSnackBar" bottom>
       {{ snackBarMessage }}
     </v-snackbar>
   </v-app>
@@ -145,6 +146,10 @@ export default {
     findingPeersBtnText() {
       if (this.findingPeersDisabled) return "matching closed";
       return !this.findingPeers ? "Start a conversation" : "Finding peers...";
+    },
+    findingPeersBtnIcon(){
+      if (this.findingPeersDisabled) return "mdi-clock-alert-outline";
+      return !this.findingPeers ? "mdi-comment-plus-outline" : "mdi-comment-processing-outline";
     },
     isLoadingChats() {
       return this.$store.state.chatStore.isLoadingChat;
