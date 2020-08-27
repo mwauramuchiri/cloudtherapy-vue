@@ -72,4 +72,8 @@ export default {
   right: 0;
   left: 0;
 }
+
+.o-90{
+  opacity: 0.9;
+}
 </style>
