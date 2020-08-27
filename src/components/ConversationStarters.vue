@@ -12,7 +12,7 @@
         <v-item v-slot:default="{ active, toggle }" >
           <v-card
           :color="active ? 'primary' : ''"
-            class="d-flex align-center py-2"
+            class="o-90 d-flex align-center"
             dark
             height="75"
             @click="toggle(); setSelectedConversationStarter(conversationStarter);"

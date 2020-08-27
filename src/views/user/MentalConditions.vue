@@ -2,7 +2,7 @@
   <div class="fill-height">
     <Loading v-if="isLoading" />
 
-    <v-container v-else>
+    <v-container v-else id="bgTopics">
       <div v-if="!mentalConditions.length">
         <p>No topics found :( please check back again later</p>
       </div>
@@ -36,7 +36,7 @@
               
               <v-card
               :color="active ? 'primary' : ''"
-                class="d-flex align-center text-center"
+                class="o-90 d-flex align-center text-center"
                 dark
                 height="90"
                 @click="toggle(); setSelectedMentalCondition(mentalCondition); openConditionDetails()"
@@ -96,5 +96,20 @@ import UserService from "@/services/UserService";
 </script>
 
 <style lang="scss">
+  
 
+  #bgTopics::before{
+    content: ' ';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../../public/img/illustrations/processing_thoughts.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.45;
+  }
 </style>
