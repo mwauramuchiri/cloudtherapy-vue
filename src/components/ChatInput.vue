@@ -55,6 +55,9 @@ import ChatService from "@/services/ChatService";
 // Utils
 import { getCurrentUser, getOtherUser } from "@/utils/chat";
 
+// Event bus
+import EventBus from "@/bus";
+
 export default {
   name: "ChatInput",
   components: {
@@ -133,6 +136,11 @@ export default {
         this.text = "";
       });
     }
+  },
+  created(){
+    EventBus.$on('conversationStarterSelected',textReceived=>{
+      this.text = textReceived
+    })
   }
 };
 </script>
@@ -164,7 +172,7 @@ export default {
 }
 
 .chat-input__textarea textarea {
-  line-height: $h2-size !important;
+  line-height: 150% !important;
   max-height: 240px !important;
 }
 

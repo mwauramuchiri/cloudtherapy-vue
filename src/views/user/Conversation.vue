@@ -59,20 +59,11 @@
       key="ct-chat-content"
       id="chat-thread-container"
     >
-      <!-- ANY CHAT RELATED MESSAGES -->
-      <v-banner single-line sticky v-if="false" color="green lighten-5">
-        <h4 class="grey--text text--darken-4 font-weight-regular">
-          I am here to help. Feel free to call me anytime
-        </h4>
-
-        <template v-slot:actions>
-          <v-btn text color="yellow accent-4">Call Anne</v-btn>
-        </template>
-      </v-banner>
-
       <!-- CHATS EMPTY -->
-      <v-container class="fill-height" v-else-if="!chatMessages.length">
-        <img src="/img/illustrations/online_discussion.svg" alt="Cloud therapy home background" id="bgEmptyConversation"/>
+      <v-container class="fill-height" v-if="!chatMessages.length" id="bgConversation">
+  
+        
+        <ConversationStarters />
 
         <v-alert
         class="d-flex justify-center grow mx-auto"
@@ -87,7 +78,6 @@
       </v-container>
 
       <template v-else class=" ct-h-100">
-        <!--  // TODO: Get this from the message data -->
         <ChatBubble
           v-for="(chatMessage, i) in chatMessages"
           :key="i"
@@ -107,7 +97,7 @@
     >
       <!-- CHAT TEXTAREA -->
       <!-- CHAT SEND BTN -->
-      <ChatInput />
+      <ChatInput/>
     </v-footer>
   
     <v-snackbar v-model="openSnackBar" top>
@@ -120,6 +110,7 @@
 // Components
 import ChatInput from "@/components/ChatInput.vue";
 import ChatBubble from "@/components/ChatBubble.vue";
+import ConversationStarters from "@/components/ConversationStarters.vue";
 
 // Mixins
 import UserMixin from "@/mixins/UserMixin";
@@ -139,12 +130,13 @@ export default {
   name: "Conversation",
   components: {
     ChatInput,
-    ChatBubble
+    ChatBubble,
+    ConversationStarters
   },
   data() {
     return {
       openSnackBar: false,
-      snackBarMessage: ""
+      snackBarMessage: "",
     };
   },
   props: ["therapist", "therapistId"],
@@ -168,6 +160,10 @@ export default {
   },
   methods: {
     isSelf,
+    //TODO: Check this implementation and hookt his up to a card with a conversation starter tip
+    setConversationStarter(conversationStarter){
+      this.$emit('setMessage', conversationStarter);
+    },
     loadCurrentConversation() {
       ChatService.getChatById(this.currentChatThreadId);
 
@@ -236,5 +232,22 @@ export default {
 
 #bgEmptyConversation{
   width:100%;
+}
+
+#bgConversation::before{
+  content: ' ';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("../../../public/img/illustrations/online_discussion.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-position-x:right;
+  opacity: 0.25;
+   
 }
 </style>
