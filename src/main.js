@@ -1,16 +1,19 @@
+import "@mdi/font/css/materialdesignicons.css";
 import Vue from "vue";
+import VueAnalytics from "vue-analytics";
 import App from "./App.vue";
+import Loading from "./components/Loading.vue";
+import UiMixin from "./mixins/UiMixin";
+import vuetify from "./plugins/vuetify";
 import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
-import vuetify from "./plugins/vuetify";
-import "@mdi/font/css/materialdesignicons.css";
-
-import UiMixin from "./mixins/UiMixin";
-
 import { formatDate } from "./utils/date";
 
-import Loading from "./components/Loading.vue";
+// Configuration VueAnalytics
+Vue.use(VueAnalytics, {
+  id: "UA-176953508-1",
+});
 
 // Globals
 Vue.mixin(UiMixin);
@@ -25,5 +28,5 @@ new Vue({
   router,
   store,
   vuetify,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");
