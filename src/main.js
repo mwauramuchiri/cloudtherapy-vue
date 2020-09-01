@@ -13,6 +13,7 @@ import { formatDate } from "./utils/date";
 // Configuration VueAnalytics
 Vue.use(VueAnalytics, {
   id: "UA-176953508-1",
+   router
 });
 
 // Globals
