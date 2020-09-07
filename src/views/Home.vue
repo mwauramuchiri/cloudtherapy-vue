@@ -19,12 +19,19 @@
         </v-col>
       </v-row>
     </v-container>
+
+    <SiteFooter />
   </v-app>
 </template>
 
 <script>
+import SiteFooter from '@/components/templates/SiteFooter';
+
 export default {
   name: "Home",
+  components: {
+    SiteFooter
+  },
   created() {
     document.title = "Cloudtherapy - It's okay not to be okay";
   }
