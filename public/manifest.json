@@ -1,8 +1,9 @@
 {
   "name": "cloud therapy",
   "short_name": "cloudtherapy",
-  "theme_color": "#4DBA87",
-  "icons": [{
+  "theme_color": "#009688",
+  "icons": [
+    {
       "src": "https://cloudtherapy.app/img/icons/android-icon-36x36.png",
       "sizes": "36x36",
       "type": "image\/png",
@@ -41,7 +42,7 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#000000",
+  "background_color": "#ffffff",
   "url": "https://cloudtherapy.app",
   "manifestUrl": "https://cloudtherapy.app/manifest.json",
   "lang": ""
