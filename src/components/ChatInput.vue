@@ -5,12 +5,6 @@
     color="transparent"
     class="d-inline-flex px-2 align-end chat-input"
   >
-    <EmojiBar
-      @focus-input-field="focusInputField()"
-      @add-emoji="addEmoji"
-      @emoji-bar-open="emojiBarOpen()"
-    ></EmojiBar>
-
     <v-textarea
       id="chat-input"
       ref="chat-input"
@@ -43,7 +37,6 @@
 
 <script>
 // Components
-import EmojiBar from "@/components/EmojiBar";
 import _debounce from "lodash/debounce";
 
 // Mixins
@@ -60,9 +53,6 @@ import EventBus from "@/bus";
 
 export default {
   name: "ChatInput",
-  components: {
-    EmojiBar
-  },
   mixins: [ChatMixin],
   data() {
     return {
@@ -85,35 +75,6 @@ export default {
     }
   },
   methods: {
-    emojiBarOpen() {
-      const input = this.$refs["chat-input"].$el.querySelector("textarea");
-      this.inputCursorPos = [input.selectionStart, input.selectionEnd];
-
-      this.$nextTick(input.focus());
-    },
-    addEmoji: async function(emoji) {
-      const input = this.$refs["chat-input"].$el.querySelector("textarea");
-      let currentCursorPos = [this.inputCursorPos[0], this.inputCursorPos[1]];
-      let newText = `${this.text.substring(0, currentCursorPos[0])}${
-        emoji.native
-      }${this.text.substring(currentCursorPos[1], this.text.length)}`;
-      this.text = newText;
-      await this.$nextTick();
-
-      input.focus();
-      await this.$nextTick();
-
-      this.inputCursorPos = [
-        currentCursorPos[0] + emoji.native.length,
-        currentCursorPos[1] + emoji.native.length
-      ];
-      await this.$nextTick();
-
-      input.setSelectionRange(this.inputCursorPos[0], this.inputCursorPos[1]);
-    },
-    focusInputField() {
-      this.$nextTick(this.$refs["chat-input"].focus());
-    },
     sendText() {
       if (this.textIsEmpty || !this.currentChatIsLoaded) return;
 
