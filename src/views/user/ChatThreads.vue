@@ -80,7 +80,7 @@
 
                     <!-- Chat message -->
                     <v-list-item-subtitle class="pb-0 align-items-start">
-                      <v-row>
+                      <v-row class="mt-0">
                         <v-col class="pt-0">
                           <template v-if="chat.isNew">
                             <h5 class="primary--text">New chat</h5>
