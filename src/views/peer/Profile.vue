@@ -199,6 +199,8 @@ export default {
       UserService.updateUser(this.userData).then(() => {
         this.openSnackBar = true;
         this.isSavingProfile = false;
+
+        this.$router.push({path: '/user/chats'})
       });
     },
     async generateName() {
