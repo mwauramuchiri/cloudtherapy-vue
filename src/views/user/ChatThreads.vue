@@ -5,7 +5,7 @@
       <v-spacer />
       <div class="mr-5">
         <v-btn
-          depressed
+          plain
           rounded
           class=" text-white"
           color="primary"
