@@ -18,7 +18,6 @@ const getChats = async (userId, beforeFn = () => {}, afterFn = () => {}) => {
   // Sets up realtime listener for chat
   return _chatsRef
     .where("participantIds", "array-contains", userId)
-    .where("isActive", "==", true)
     .orderBy("dateUpdated", "desc")
     .onSnapshot(async querySnapshot => {
       let chats = [];
