@@ -1,0 +1,105 @@
+@import "./_variables.scss";
+@import "./fonts.scss";
+@import "./typography.scss";
+
+#app {
+  font-family: 'Muli', Roboto, Arial;
+  --loaderColor: #fff;
+  --top-app-bar-height: 64px;
+}
+
+.ct-shadow {
+  box-shadow: $ct-shadow !important;
+}
+
+body {
+  font-size: 16px;
+  max-width: 100vw;
+  overflow: hidden !important;
+}
+
+.mt-8 {
+  margin-top: 32px !important;
+}
+
+.ct-h-100 {
+  height: 100%;
+}
+
+.container {
+  max-width: 700px !important;
+  padding-bottom: $ct-app-top-bar-height !important;
+}
+
+.ct-app-bar   > * {
+  max-width: 700px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.ct-cursor-pointer {
+  cursor: pointer !important;
+}
+
+.ct-transition-fast {
+  transition-duration: .24s;
+}
+
+.ct-transition {
+  transition-duration: .33s;
+}
+
+.ct-transition-slow {
+  transition-duration: .5s;
+}
+
+.ct-transition,
+.ct-transition-fast,
+.ct-transition-slow {
+  transition-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+}
+
+.ct-searchbar {
+  font-size: $h4-size;
+  height: $h4-size;
+  width: 100%;
+  line-height: 1.3;
+  box-sizing: content-box;
+}
+
+button, a {
+  @extend .ct-border-radius;  
+}
+
+.ct-border-radius {
+  border-radius: $ct-border-radius !important;
+}
+
+/* >>>>>>> */
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.55s ease-in-out !important;
+}
+
+.fade-delay-leave-active {
+  transition: opacity 1.2s ease-in-out 0.33s !important;
+}
+
+.fade-delay-enter-active {
+  transition: opacity 1.2s ease-in-out 0.76s !important;
+}
+
+.fade-enter-to,
+.fade-leave,
+.fade-delay-enter-to,
+.fade-delay-leave {
+  opacity: 1 !important;
+}
+
+.fade-enter,
+.fade-leave-to,
+.fade-delay-enter,
+.fade-delay-leave-to {
+  opacity: 0 !important;
+}
