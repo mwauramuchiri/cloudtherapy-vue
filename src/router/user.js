@@ -1,7 +1,7 @@
 import PeerProfile from "../views/peer/Profile.vue";
 import ChatThreads from "../views/user/ChatThreads.vue";
 import Conversation from "../views/user/Conversation.vue";
-import MentalConditions from "../views/user/MentalConditions";
+import MentalConditions from "../views/user/MentalConditions.vue";
 // import TherapistDetails from "../views/user/TherapistDetails.vue";
 import UserDetails from "../views/user/UserDetails.vue";
 import UserView from "../views/user/UserView.vue";
