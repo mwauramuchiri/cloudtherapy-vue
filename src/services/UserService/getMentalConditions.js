@@ -1,8 +1,8 @@
 // Utils
-import { doc, collection } from "firebase/firestore";
+import { collection, query, orderBy, getDocs } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 
-const _mentalConditionsRef = doc(collection(db, "mentalConditions"));
+const _mentalConditionsRef = collection(db, "mentalConditions");
 
 /** Get mental conditions*/
 const getMentalConditions = async (beforeFn = () => {}, afterFn = () => {}) => {
@@ -11,10 +11,9 @@ const getMentalConditions = async (beforeFn = () => {}, afterFn = () => {}) => {
     beforeFn();
   }
 
-  // Sets up realtime listener for chat
-  return _mentalConditionsRef
-    .orderBy("name", "asc")
-    .get()
+  const q = query(_mentalConditionsRef, orderBy("name", "asc"))
+
+  return getDocs(q)
     .then((querySnapshot) => {
       const mentalConditions = querySnapshot.docs.map((doc) => {
         return {
