@@ -1,25 +1,21 @@
-import { initializeApp, getApps } from 'firebase/app';
+import { getApps, initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyABp8joIlXkM8mTfqlWkU0WtoB9H4VLL98",
-  authDomain: "ltai-9957c.firebaseapp.com",
-  databaseURL: "https://ltai-9957c.firebaseio.com",
-  projectId: "ltai-9957c",
-  storageBucket: "ltai-9957c.appspot.com",
-  messagingSenderId: "786673713024",
-  appId: "1:786673713024:web:92e4963ede74ea100e8b65",
-  measurementId: "G-GTQJ3K8QGK"
+  apiKey: "AIzaSyBiwIV93BfMeod71CWd0b4CQolhVSZ3JBs",
+  authDomain: "ementoring-afric-1536067843571.firebaseapp.com",
+  databaseURL: "https://ementoring-afric-1536067843571.firebaseio.com",
+  projectId: "ementoring-afric-1536067843571",
+  storageBucket: "ementoring-afric-1536067843571.appspot.com",
+  messagingSenderId: "326943472089",
+  appId: "1:326943472089:web:62746b071cf283f58bc1c8"
 };
 
-let app;
-
 // Initialize Firebase app
-if (!getApps().length) {
-  app = initializeApp(firebaseConfig);
-}
+const apps = getApps();
+const app = apps.length ? apps[0] : initializeApp(firebaseConfig);
 
 // Get references to authentication and firestore services
 const auth = getAuth(app)

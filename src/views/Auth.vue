@@ -18,7 +18,7 @@
                   width="300px"
                   x-large
                   class="mt-8 ct-btn-facebook ct-shadow"
-                  @click="_signInWithRedirect('facebook')"
+                  @click="_signInWithPopup('facebook')"
                 >
                   <v-icon left>mdi-facebook</v-icon>
                   Sign in with Facebook
@@ -29,7 +29,7 @@
                   width="300px"
                   x-large
                   class="mt-8 ct-btn-twitter ct-shadow"
-                  @click="_signInWithRedirect('twitter')"
+                  @click="_signInWithPopup('twitter')"
                 >
                   <v-icon left>mdi-twitter</v-icon>
                   Sign in with Twitter
@@ -40,7 +40,7 @@
                   width="300px"
                   x-large
                   class="mt-8 ct-btn-google ct-shadow"
-                  @click="_signInWithRedirect('google')"
+                  @click="_signInWithPopup('google')"
                 >
                   <v-icon left>mdi-google</v-icon>
                   Sign in with Google
@@ -57,7 +57,7 @@
 <script>
 import AppLogo from "@/components/AppLogo.vue";
 
-import { _signInWithRedirect } from "@/utils/auth";
+import { _signInWithPopup } from "@/utils/auth";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
@@ -81,7 +81,7 @@ export default {
     }
   },
   methods: {
-    _signInWithRedirect
+    _signInWithPopup
   },
   created() {
     document.title = "Sign in - Cloudtherapy";
