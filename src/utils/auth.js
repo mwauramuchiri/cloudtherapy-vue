@@ -51,18 +51,20 @@ const _signInWithRedirect = (providerName) => {
 /** Sign the user in using a popup */
 const _signInWithPopup = (providerName) => {
     let authProvider = _getProvider(providerName);
-    return signInWithPopup(authProvider);
+    signInWithPopup(auth, authProvider).then(() => {
+        alert("What")
+    });
 }
 
-const logout = (redirectUrl = "") => {
-    return signOut()
-        .then(() => {
-            console.info("Successfully logged out");
-            window.location.replace(redirectUrl);
-        }).catch((err) => {
-            console.error("Failed to sign you out");
-            console.error(err);
-        });
+const logout = async (redirectUrl = "") => {
+    try {
+        await signOut();
+        console.info("Successfully logged out");
+        window.location.replace(redirectUrl);
+    } catch (err) {
+        console.error("Failed to sign you out");
+        console.error(err);
+    }
 }
 
 export {
