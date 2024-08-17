@@ -44,7 +44,7 @@ const _getProvider = (providerName) => {
 const _signInWithRedirect = (providerName) => {
     let authProvider = _getProvider(providerName);
     signInWithRedirect(auth, authProvider).then(() => {
-        alert("What")
+        // alert("What")
     });
 }
 
@@ -52,13 +52,13 @@ const _signInWithRedirect = (providerName) => {
 const _signInWithPopup = (providerName) => {
     let authProvider = _getProvider(providerName);
     signInWithPopup(auth, authProvider).then(() => {
-        alert("What")
+        // alert("What")
     });
 }
 
 const logout = async (redirectUrl = "") => {
     try {
-        await signOut();
+        await signOut(auth);
         console.info("Successfully logged out");
         window.location.replace(redirectUrl);
     } catch (err) {

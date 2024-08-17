@@ -4,9 +4,10 @@ import getAuthUser from '../../services/AuthService/getAuthUser';
 
 const handleAuthSuccess = (user) => {
     getAuthUser(user.uid).then((response)=>{ 
-        const loggedInUser = response.data.data;
+        const loggedInUser = response.data.data || {};
+        const isLoggedInUser = Object.values(loggedInUser).length === 0;
         
-        if(!loggedInUser) {
+        if (isLoggedInUser) {
             let userData = {
                 email: user.email,
                 emailVerified: user.emailVerified,

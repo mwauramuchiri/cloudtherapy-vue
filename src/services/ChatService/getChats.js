@@ -1,9 +1,9 @@
-import { doc, collection } from "firebase/firestore";
+import { collection, query, where, orderBy, getDocs } from "firebase/firestore";
 // Utils
 import { db } from "../../utils/firebase";
 import { getOtherUser } from "../../utils/chat";
 
-const _chatsRef = doc(collection(db, "chats"));
+const _chatsRef = collection(db, "chats");
 
 /** Get chat threads belonging to the currently logged in user
  * Currently logged in user is retrieved from Auth store
@@ -16,11 +16,13 @@ const getChats = async (userId, beforeFn = () => {}, afterFn = () => {}) => {
 
   if (!userId) return [];
 
-  // Sets up realtime listener for chat
-  return _chatsRef
-    .where("participantIds", "array-contains", userId)
-    .orderBy("dateUpdated", "desc")
-    .onSnapshot(async querySnapshot => {
+  const q = query(
+    _chatsRef,
+    where("participantIds", "array-contains", userId),
+    orderBy("dateUpdated", "desc"),
+  );
+
+  return getDocs(q).then(async querySnapshot => {
       let chats = [];
       let chatItem;
       querySnapshot.docs.forEach(doc => {

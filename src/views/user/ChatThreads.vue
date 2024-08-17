@@ -15,6 +15,9 @@
         >
           <v-icon>{{ findingPeersBtnIcon }}</v-icon>
         </v-btn>
+        <v-btn color="primary" @click="logoutUser()">
+          Log out
+        </v-btn>
       </div>
     </v-app-bar>
 

@@ -8,12 +8,12 @@ import store from '../../store';
 
 /** Handle any changes to auth state ~ firebase */
 const handleAuthChanged = async user => {
-    console.log(user);
-
     store.commit('authStore/updateProp', {
         name: 'isLoadingAuth',
         value: true
     });
+
+    // console.log('authHasChanged', user);
 
     // User is logged in
     if (user) {
