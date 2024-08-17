@@ -1,3 +1,4 @@
+import { collection, doc, getDoc } from "firebase/firestore";
 // Firebase
 import { db } from "../../utils/firebase";
 
@@ -8,9 +9,7 @@ import { getCurrentUser, getOtherUser } from "../../utils/chat";
 import store from "../../store";
 
 const getChatById = chatId => {
-  db.collection("chats")
-    .doc(chatId)
-    .get()
+  getDoc(doc(collection(db, "chats"), chatId))
     .then(chatDoc => {
       const chatFound = chatDoc.data();
 

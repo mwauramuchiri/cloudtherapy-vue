@@ -1,7 +1,7 @@
-import { doc, collection } from "firebase/firestore";
+import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { db } from "../../utils/firebase";
 
-const _chatMessagesRef = doc(collection(db, "messages"));
+const _chatMessagesRef = collection(db, "messages");
 
 /** Get chat messages belonging to a single chat (chat thread)
  * @param {String} chatId The id of the chat thread to retrieve messages for
@@ -18,19 +18,18 @@ const getChatMessages = async (
     beforeFn();
   }
 
-  return _chatMessagesRef
-    .where("chatId", "==", chatId)
-    .orderBy("dateSent", "asc")
-    .onSnapshot(async (querySnapshot) => {
-      let chatMessages = [];
-      querySnapshot.docs.forEach((doc) => {
-        let _chatMessage = doc.data();
-        _chatMessage.id = doc.id;
-        chatMessages.push(_chatMessage);
-      });
+  const messagesQuery = query(_chatMessagesRef, where("chatId", "==", chatId), orderBy("dateSent", "asc"));
 
-      afterFn(chatMessages);
+  onSnapshot(messagesQuery, (querySnapshot) => {
+    let chatMessages = [];
+    querySnapshot.docs.forEach((doc) => {
+      let _chatMessage = doc.data();
+      _chatMessage.id = doc.id;
+      chatMessages.push(_chatMessage);
     });
+
+    afterFn(chatMessages);
+  });
 };
 
 //* EXPORTS
