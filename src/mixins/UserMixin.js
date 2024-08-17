@@ -1,3 +1,5 @@
+import { logout } from "@/utils/auth";
+
 export default {
   name: "UserMixin",
   filters: {
@@ -23,14 +25,23 @@ export default {
         return Promise.resolve(currUser);
       }
 
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         this.$store.watch(
           state => state.userStore.user,
           () => {
             let user = this.$store.state.userStore.user;
 
             if (Object.keys(user).length === 0) {
-              reject("User not found");
+              this.$store.commit('authStore/updateProp', {
+                name: 'isLoggedIn',
+                value: true
+              });
+
+              // return this.logoutUser();
+              // reject("User not found");
+
+              return;
+              // ? what to do?
             }
 
             //* Getting here means user was found
@@ -38,6 +49,9 @@ export default {
           }
         );
       });
+    },
+    async logoutUser() {
+      logout("/")
     }
   }
 };
