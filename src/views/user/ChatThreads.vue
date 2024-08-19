@@ -188,40 +188,46 @@ export default {
         this.findingPeersDisabled = !!response.data.count;
 
         if (this.findingPeersDisabled) {
+          this.getChats();
+
           setTimeout(() => {
             this.findingPeersDisabled = false;
           }, 60000);
         }
       });
+    },
+    getChats() {
+      this.waitForUser().then(user =>
+        ChatService.getChats(
+          user.uid,
+          // Before chat check begins
+          () => {
+            this.$store.commit("chatStore/updateProp", {
+              name: "isLoadingChat",
+              value: true
+            });
+          },
+          // Once chats are found
+          chats => {
+            // Update the chat store
+            this.$store.commit("chatStore/updateProp", {
+              name: "chats",
+              value: chats
+            });
+
+            this.$store.commit("chatStore/updateProp", {
+              name: "isLoadingChat",
+              value: false
+            });
+          }
+        )
+      );
     }
   },
   created() {
     document.title = "Chats - Cloud Therapy";
-    this.waitForUser().then(user =>
-      ChatService.getChats(
-        user.uid,
-        // Before chat check begins
-        () => {
-          this.$store.commit("chatStore/updateProp", {
-            name: "isLoadingChat",
-            value: true
-          });
-        },
-        // Once chats are found
-        chats => {
-          // Update the chat store
-          this.$store.commit("chatStore/updateProp", {
-            name: "chats",
-            value: chats
-          });
 
-          this.$store.commit("chatStore/updateProp", {
-            name: "isLoadingChat",
-            value: false
-          });
-        }
-      )
-    );
+    this.getChats();
   }
 };
 </script>

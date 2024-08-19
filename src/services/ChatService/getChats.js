@@ -22,22 +22,18 @@ const getChats = async (userId, beforeFn = () => {}, afterFn = () => {}) => {
     orderBy("dateUpdated", "desc"),
   );
 
-  return getDocs(q).then(async querySnapshot => {
-      let chats = [];
-      let chatItem;
-      querySnapshot.docs.forEach(doc => {
-        chatItem = doc.data();
-        chatItem.id = doc.id;
-        chats.push(chatItem);
-      });
+  const {
+    docs
+  } = await getDocs(q);
 
-      chats = chats.map(chat => {
-        chat.otherUser = getOtherUser(chat);
-        return chat;
-      });
+  const chats = docs.map(doc => {
+    const chat = doc.data();
+    chat.id = doc.id;
+    chat.otherUser = getOtherUser(chat);
+    return chat;
+  });
 
-      afterFn(chats);
-    });
+  afterFn(chats);
 };
 
 //* EXPORTS
