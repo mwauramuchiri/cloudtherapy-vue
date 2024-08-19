@@ -13,15 +13,12 @@ const handleAuthChanged = async user => {
         value: true
     });
 
-    // console.log('authHasChanged', user);
-
     // User is logged in
     if (user) {
-        handleAuthSuccess(user);
+        await handleAuthSuccess(user);
         const authDataFromApi = await AuthService.getAuthUser(user.uid);
 
         if (!authDataFromApi) return;
-
 
         store.commit('authStore/updateProp', {
             name: 'isLoggedIn',
